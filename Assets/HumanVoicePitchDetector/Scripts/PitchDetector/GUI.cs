@@ -10,7 +10,10 @@ using SimpleJSON;
 public class GUI{
 	private string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
 	    float x = -Camera.main.orthographicSize * Camera.main.aspect + 2;
-		float y = 0.76f;
+		float y = -0.8745f;
+		float yDistance = 0.2349f;
+	GameObject quaver;
+    GameObject noteImage;
 
     float positionXNext;
      float notesXDistance;
@@ -20,10 +23,6 @@ public class GUI{
 
      }
 
-
-    public static void drawNote(){
-    }
-
     public void drawMusicStaff(){
 
     }
@@ -32,79 +31,125 @@ public class GUI{
 		
 		return x + xComponent*2;
 	}
+	/*
     public void drawScala(Exercise exercise,GameObject noteImage){
       /*  GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (noteImage);
         newNote.transform.position = new Vector3 (2,2);
-        */
+        
 
 		for (int i = 0; i < exercise.list_midisdurations.Count; ++i) {
 
 			x = x + 2;
-			y = midiToScreenCustomY(exercise.list_midisdurations[i][0]);
-            UnityEngine.Debug.Log ("Y: "+ y);
+			float value = midiToScreenCustomY(exercise.list_midisdurations[i][0]);
+            UnityEngine.Debug.Log ("Y: "+ value);
 
 			
 			GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (noteImage);
-			newNote.transform.position = new Vector3 (x, y);
+			newNote.transform.position = new Vector3 (x, value);
 		}
 
     }
-	public void drawNote(double midi,GameObject noteImage,float position){
+	*/
+
+	public void getNoteType(Exercise.Note note){
+
+
+	}
+	public void drawNote(int midi,int duration,GameObject noteImage,GameObject quaver,float position){
+		this.noteImage = noteImage;
+		this.quaver = quaver;
 		float xComponent = calculatePostion(position);
-			y = midiToScreenCustomY(midi);
-            UnityEngine.Debug.Log ("Y: "+ y);
+			float value= midiToScreenCustomY(midi);
+            UnityEngine.Debug.Log ("Y: "+ value);
+			GameObject image = getTypeofNote(duration);
 
 			
-			GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (noteImage);
-			newNote.transform.position = new Vector3 (xComponent, y);
+			GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (image);
+			newNote.transform.position = new Vector3 (xComponent, value);
+
+	}
+	 private  GameObject getTypeofNote(int duration){
+		 GameObject game =null;
+		switch(duration){
+			case 4:
+			game = noteImage;
+			break;
+			case 8:
+			game = quaver;
+			break;
+		}
+		return game;
 
 	}
 
 
 
-
-    private float midiToScreenCustomY(double midiNote){
-		UnityEngine.Debug.Log ("midis: "+ midiNote);
-
-
-		int intMidiNote = (int)midiNote;
-		float mi4screen = 0.76f;
-		float midiMi4 = 52 ;
-		float midiNoteScreen = 0;
-
-
+public enum Pitchs{Mi = 0, Fa = 1, FaS =2, Sol = 3, SolS = 4 ,La = 5, LaS =6, Si = 7, Do =8, DoS = 9, Re = 10, ReS =11}
+    private float midiToScreenCustomY(int midiNote){
 		
+		var mi4 = 50; //Si Bemol
+		float dif = midiNote - mi4;
+		float resto = dif % 12;
+		float div = (int)dif / 12;
 
+		Pitchs foo = (Pitchs)resto;
+		float newY = 0.0f;
+UnityEngine.Debug.Log ("Midiiiiiii Y Custom: "+ midiNote +foo);
+		switch(foo){
+			case Pitchs.Mi:
+				newY = 0;
+				break;
 
+			case Pitchs.Fa:
+				newY = yDistance;
 
-		if(intMidiNote>=midiMi4){
-				var num = intMidiNote -midiMi4;
-                UnityEngine.Debug.Log ("NUMS: "+ num);
+			break;
+			case Pitchs.FaS:
+				newY =yDistance;
+				break;
+			case Pitchs.Sol:
+				newY =yDistance*2f;
 
-				if(num ==3){
-					num = 2;
-				}if(num == 5){
-					num =3;
-				}if(num == 7){
-					num =4;
-				}if(num == 8){
-                    num =5;
-                }
+			break;
 
-			midiNoteScreen = mi4screen +  0.242f * (num);
-		}else{
-			var num = intMidiNote -midiMi4;
-			if(num== -4){
-				num = -2;
-			}else if (num ==-2){
-				num =-1;
-			}
+			case Pitchs.SolS:
+				newY = yDistance*2f;
+				break;
+			case Pitchs.La:
+			newY = yDistance*3f;
 
-			midiNoteScreen = mi4screen +  0.242f * (num);
-			
+			break;
+
+			case Pitchs.LaS:
+				newY =yDistance*3f;
+				break;
+			case Pitchs.Si:
+			newY =yDistance*4f;
+
+			break;
+			case Pitchs.Do:
+			newY =yDistance*5f;
+				break;
+			case Pitchs.DoS:
+			newY =  yDistance*5f;
+
+			break;
+			case Pitchs.Re:
+			newY = yDistance*6f;
+				break;
+
+			case Pitchs.ReS:
+			newY = yDistance*6f;
+				break;
 
 		}
-		return midiNoteScreen;
+		newY =( (y + newY)+ (yDistance *(div *7)));
+		UnityEngine.Debug.Log ("MidiNote: "+ midiNote + " Pitch :"+foo +" "+"New Y:"+newY + " y:"+y +" diff:"+dif+" reso:"+resto+" div"+div);
+		return newY;		
 	}
+
+		
+		
+		
 
 }

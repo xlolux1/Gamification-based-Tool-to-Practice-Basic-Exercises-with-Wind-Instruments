@@ -81,7 +81,6 @@ public  class ScaleExercise  : Exercise
 
            midiDuration.Add(midiBase);
            midiDuration.Add(duration);
-           list_midisdurations.Add(midiDuration);
            list_notes.Add(not);
         }
         

@@ -28,6 +28,8 @@ public class MicrophoneDemo : MonoBehaviour {
 
 	public GameObject noteTitlePrefab;
 
+	private Exercise exercise;
+
 
 	private float scrollSpeed = 1f;
 	private float appTime = 0f;
@@ -36,7 +38,6 @@ public class MicrophoneDemo : MonoBehaviour {
 	private float dbThres = -40;
 
 	private MayorScale song;
-	private Exercise song1;
 
 	private Queue<Tuple<PitchTime,int>> drawQueue = new Queue<Tuple<PitchTime,int>> ();
 	
@@ -88,17 +89,18 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 
 	// Print pitch values to console
 	public void LogPitch (List<float> pitchList, int samples, float db) {
+		
 		var midis = RAPTPitchDetectorExtensions.HerzToMidi (pitchList);
-		//UnityEngine.Debug.Log ("detected " + pitchList.Count + " values from  " + samples + " samples, db:" + db);
+		UnityEngine.Debug.Log ("detected " + pitchList.Count + " values from  " + samples + " samples, db:" + db);
 		UnityEngine.Debug.Log (midis.NoteString ());
 		Boolean green = false;
 		Boolean yellow = false;
 		 foreach (int number in midis){
 			 UnityEngine.Debug.Log("MIDIS NUMBER: " +number);
-			if(number!=song.list_midisdurations[currentNote][0] && number != song.list_midisdurations[currentNote][0]+1  && number != song.list_midisdurations[currentNote][0]-1){
+			if(number!=exercise.list_notes[currentNote].midi && number != exercise.list_notes[currentNote].midi+1  && number != exercise.list_notes[currentNote].midi-1){
              watch.Reset();
 
-			}else if(number== song.list_midisdurations[currentNote][0]+1 || number == song.list_midisdurations[currentNote][0]-1){
+			}else if(number== exercise.list_notes[currentNote].midi+1 || number == exercise.list_notes[currentNote].midi-1){
 				yellow = true;
 
 			}else{
@@ -106,6 +108,7 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 			}
 
 		 }
+
 		 if(green){
 			 if(watch.Elapsed.Milliseconds==0){
 				watch.Start();
@@ -123,7 +126,7 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 		 UnityEngine.Debug.Log ("Green: "+green+ "Yellow: "+yellow);
 		 
         TimeSpan elapsed = watch.Elapsed;
-		UnityEngine.Debug.Log ("Update Note: "+ watch.Elapsed.Milliseconds+song.list_midisdurations[currentNote][1]);
+		UnityEngine.Debug.Log ("Update Note: "+ watch.Elapsed.Milliseconds+exercise.list_notes[currentNote].duration);
 		
 	}
 
@@ -143,43 +146,53 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 
 	// Get pitch values from queue and draw on screen
 	void Update() {
-		if(watch.Elapsed.Milliseconds+watch.Elapsed.Seconds*1000>=song.getBeatTime(song.duration)*song.list_midisdurations[currentNote][1]){
+		
+		if(watch.Elapsed.Milliseconds+watch.Elapsed.Seconds*1000>=exercise.getBeatTimeSeconds()*(int)exercise.list_notes[currentNote].duration){
 			watch.Stop();
 			UnityEngine.Debug.LogWarning ("Update Note: "+currentNote);
 			currentNote=currentNote+1;
-			if (currentNote ==song.list_midisdurations.Count){
+			if (currentNote ==exercise.list_notes.Count){
 				currentNote=0;
 			}
 			watch.Reset();
 
 		}
+		
 		if (!detector.Record) {
 			return;
 		}
 		appTime += Time.deltaTime;
+		UnityEngine.Debug.LogWarning ("appTime: "+appTime +" analysisTime" + analysisTime);
+
+
 		while (analysisTime < appTime && drawQueue.Count > 0) {
 			var item = drawQueue.Dequeue ();
 			var midi = RAPTPitchDetectorExtensions.HerzToFloatMidi (item.Item1.pitch);
 
-			UnityEngine.Debug.LogWarning ("Item NOTE: "+item.Item2 + "CURRENT" + song.list_midisdurations[currentNote][0]);
-			if(item.Item2==song.list_midisdurations[currentNote][0]){
+			UnityEngine.Debug.LogWarning ("Item NOTE: "+item.Item2 + "CURRENT" + exercise.list_notes[currentNote].midi + " midi" +midi);
+			
+			if(item.Item2==exercise.list_notes[currentNote].midi){
 				noteIndicatorPrefab=noteIndicatorGreenPrefab;
 							 if(watch.Elapsed.Milliseconds==0){
 				watch.Start();
 			 }
-			}else if(item.Item2==song.list_midisdurations[currentNote][0]+1 || item.Item2==song.list_midisdurations[currentNote][0]+1 ){
+			}else if(item.Item2==exercise.list_notes[currentNote].midi+1 || item.Item2==exercise.list_notes[currentNote].midi+1){
 				noteIndicatorPrefab=noteIndicatorYellowPrefab;
 			}else{
 				noteIndicatorPrefab=noteIndicatorRedPrefab;
 				watch.Reset();
 			}
+			
 
 
 
-
+  UnityEngine.Debug.LogWarning ("infinity?"+ midi);
 			if (!float.IsInfinity(midi)) {
 				float y = MidiToScreenY (midi);
 				float x = analysisTime * scrollSpeed;
+				UnityEngine.Debug.LogWarning ("noteIndicatorPrefab"+ noteIndicatorPrefab);
+			
+
 				GameObject newNote = Instantiate<GameObject> (noteIndicatorPrefab);
 				newNote.transform.position = new Vector3 (x, y);
 				newNote.transform.SetParent (transform, false);
@@ -226,14 +239,15 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 		}*/
 		JsonParser parser = new JsonParser();
 		 Exercise scale = parser.LoadJson5();
-		 UnityEngine.Debug.Log ("list_midisdurations: "+ scale.list_midisdurations);
+		 exercise = scale;
 		 UnityEngine.Debug.Log ("timeSignature: "+ scale.timeSignature);
 		 UnityEngine.Debug.Log ("tune: "+ scale.tune);
 		 
 
-		Manager.Instance.drawScala(scale,noteImage);
+		Manager.Instance.drawScala(scale,noteImage,corchea);
 		
 	}
+	/*
 	private float midiToScreenCustomY(double midiNote){
 		UnityEngine.Debug.Log ("midis: "+ midiNote);
 
@@ -276,6 +290,7 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 
 
 	}
+	*/
 
 
 	private float MidiToScreenY(float midiVal) {

@@ -28,8 +28,6 @@ public enum Durations{Semibreve = 1, Minim = 2, Crotchet = 4, Quaver = 8, Semiqu
 
     public List<Note> list_notes = new List<Note>();
 
-    public List<List<double>> list_midisdurations = new List<List<double>>();
-
     public Exercise(){
         
     }
@@ -38,6 +36,13 @@ public enum Durations{Semibreve = 1, Minim = 2, Crotchet = 4, Quaver = 8, Semiqu
         this.tune = tune;
         this.beats = beats;
         this.timeSignature =  timeSignature;
+    }
+        public  int getBeatTimeSeconds(){
+        return  Convert.ToInt32(1/(beats/60)*1000);
+    }
+
+    public int getSecondsofNote(int positionNote){
+        return Convert.ToInt32(1/(beats/60)*1000)*positionNote;
     }
 
 
