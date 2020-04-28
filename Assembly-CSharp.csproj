@@ -53,10 +53,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Exceptions\DurationException.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\AutoDestroy.cs" />
+     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\Durations.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\Exercise.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\ExerciseFactory.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\LongNotesExercise.cs" />
+     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\NormalExercise.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\ScaleExercise.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\MicrophoneDemo.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\ArrayPool.cs" />

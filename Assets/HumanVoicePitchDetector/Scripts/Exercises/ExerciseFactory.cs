@@ -20,6 +20,10 @@ public class ExerciseFactory{
                 LongNotesExercise longNotes = createLongNotesExercise(exerciseLong);
                 ex = longNotes;
                 break;
+
+            case "normalExercise":
+                var exerciseNormal = json["normalExercise"];
+                break;
         }
         ex.getStringNotes();
         return ex;

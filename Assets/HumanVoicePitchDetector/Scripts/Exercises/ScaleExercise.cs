@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 public  class ScaleExercise  : Exercise
 {
     enum Scales {Mayor,Menor}
@@ -21,9 +22,18 @@ public  class ScaleExercise  : Exercise
         
     }
 
-    public ScaleExercise(string tune, int beats, string timeSignature,string firstNote,List<String> intervals,int duration):base(tune,beats,timeSignature){
+    public ScaleExercise(string tune, int beats, string timeSignature,string firstNote,List<String> intervals,int duration)
+    :base(tune,beats,timeSignature){
         this.firstNote = firstNote;
         this.duration = duration;
+        if(!Enum.IsDefined(typeof(Durations), duration)){
+            throw new DurationException("Duration Exception"); 
+            
+        }
+
+        
+        UnityEngine.Debug.Log(Enum.IsDefined(typeof(Durations), 3));
+        UnityEngine.Debug.Log(Enum.IsDefined(typeof(PetType), 8));
         createScale();
     }
      public override string ToString()
@@ -61,6 +71,7 @@ public  class ScaleExercise  : Exercise
         }
          int sum = 0;
          int midi = NoteToMidi(initialNote ,numberScale);
+        UnityEngine.Debug.Log ("MIDI X: "+ midi);
         for(int i = 0; i<=7;i++){
             List<double> midiDuration = new List<double>();
             

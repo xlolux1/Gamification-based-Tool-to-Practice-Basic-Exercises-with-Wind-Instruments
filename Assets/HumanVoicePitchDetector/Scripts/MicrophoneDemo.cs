@@ -236,62 +236,15 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 			
 			GameObject newNote = Instantiate<GameObject> (noteImage);
 			newNote.transform.position = new Vector3 (x, y);
+		
 		}*/
-		JsonParser parser = new JsonParser();
-		 Exercise scale = parser.LoadJson5();
-		 exercise = scale;
-		 UnityEngine.Debug.Log ("timeSignature: "+ scale.timeSignature);
-		 UnityEngine.Debug.Log ("tune: "+ scale.tune);
+		Exercise ex = Manager.Instance.startExercise();
+		exercise = ex;
 		 
 
-		Manager.Instance.drawScala(scale,noteImage,corchea);
+		Manager.Instance.drawScala(ex,noteImage,corchea);
 		
 	}
-	/*
-	private float midiToScreenCustomY(double midiNote){
-		UnityEngine.Debug.Log ("midis: "+ midiNote);
-
-
-		int intMidiNote = (int)midiNote;
-		float mi4screen = 0.76f;
-		float midiMi4 = 52 ;
-		float midiNoteScreen = 0;
-
-
-		
-
-
-
-		if(intMidiNote>=midiMi4){
-				var num = intMidiNote -midiMi4;
-				if(num ==3){
-					num = 2;
-				}if(num == 5){
-					num =3;
-				}if(num == 7){
-					num =4;
-				}
-
-			midiNoteScreen = mi4screen +  0.242f * (num);
-		}else{
-			var num = intMidiNote -midiMi4;
-			if(num== -4){
-				num = -2;
-			}else if (num ==-2){
-				num =-1;
-			}
-
-			midiNoteScreen = mi4screen +  0.242f * (num);
-			
-
-		}
-		return midiNoteScreen;
-
-
-
-	}
-	*/
-
 
 	private float MidiToScreenY(float midiVal) {
 		if (float.IsInfinity (midiVal)) {

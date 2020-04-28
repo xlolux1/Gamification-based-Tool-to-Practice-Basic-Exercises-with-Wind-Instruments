@@ -5,6 +5,8 @@ using UnityEngine;
 using System.Diagnostics;
 using PitchDetector;
 using SimpleJSON;
+ using UnityEngine.UI;
+ using UnityEngine.Windows;
 
 
 public class GUI{
@@ -14,6 +16,8 @@ public class GUI{
 		float yDistance = 0.2349f;
 	GameObject quaver;
     GameObject noteImage;
+	 List<GameObject> listGameObjects = new List<GameObject>();
+
 
     float positionXNext;
      float notesXDistance;
@@ -27,45 +31,118 @@ public class GUI{
 
     }
 
+	public Sprite getInitialSprite(Durations dur,String colour){
+		Sprite sprit;
+
+		if(dur == Durations.Semibreve){
+			switch (colour){
+          	case "green":
+              sprit = Resources.Load<Sprite>("Sprites/semibreve/GreenSemibreve");
+              	break;
+          	case "black":
+              	sprit = Resources.Load<Sprite>("Sprites/semibreve/BlackSemibreve");
+              	break;
+			case "red":
+				sprit = Resources.Load<Sprite>("Sprites/semibreve/RedSemibreve");
+			case "yellow":
+				sprit = Resources.Load<Sprite>("Sprites/semibreve/YellowSemibreve");
+			}
+		}else if( dur == Durations.Minim){
+						switch (colour){
+          	case "green":
+              	sprit = Resources.Load<Sprite>("Sprites/minim/GreenMinim");
+              	break;
+          	case "black":
+              	sprit = Resources.Load<Sprite>("Sprites/minim/BlackMinim");
+              	break;
+			case "red":
+				sprit = Resources.Load<Sprite>("Sprites/minim/RedMinim");
+			case "yellow":
+				sprit = Resources.Load<Sprite>("Sprites/minim/YellowMinim");
+			}
+			
+		}else if (dur == Durations.Crotchet){
+						switch (colour){
+          	case "green":
+              	sprit = Resources.Load<Sprite>("Sprites/semibreve/GreenSemibreve");
+              	break;
+          	case "black":
+              	sprit = Resources.Load<Sprite>("Sprites/semibreve/BlackSemibreve");
+              	break;
+			case "red":
+				sprit = Resources.Load<Sprite>("Sprites/semibreve/RedSemibreve");
+			case "yellow":
+				sprit = Resources.Load<Sprite>("Sprites/semibreve/YellowSemibreve");
+			}
+
+		}else if (dur == Durations.quaver){
+						switch (colour){
+          	case "green":
+              	sprit = Resources.Load<Sprite>("Sprites/quaver/GreenQuaver");
+              	break;
+          	case "black":
+              	sprit = Resources.Load<Sprite>("Sprites/quaver/BlackQuaver");
+              	break;
+			case "red":
+				sprit = Resources.Load<Sprite>("Sprites/quaver/RedQuaver");
+			case "yellow":
+				sprit = Resources.Load<Sprite>("Sprites/quaver/YellowQuaver");
+			}
+		}
+
+	  return sprit;
+
+	}
+
 	public float calculatePostion(float xComponent){
 		
 		return x + xComponent*2;
 	}
-	/*
+/*
     public void drawScala(Exercise exercise,GameObject noteImage){
-      /*  GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (noteImage);
-        newNote.transform.position = new Vector3 (2,2);
-        
 
 		for (int i = 0; i < exercise.list_midisdurations.Count; ++i) {
 
 			x = x + 2;
 			float value = midiToScreenCustomY(exercise.list_midisdurations[i][0]);
-            UnityEngine.Debug.Log ("Y: "+ value);
-
+        
+		newNote.transform.position = new Vector3 (x, value);
 			
-			GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (noteImage);
-			newNote.transform.position = new Vector3 (x, value);
 		}
 
     }
-	*/
+	
+*/
+	public void prueba(){
 
-	public void getNoteType(Exercise.Note note){
 
+		GameObject NewObj = new GameObject(); //Create the GameObject
+        Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
 
+		NewImage = Resources.Load("D:/Dropbox/Uni/Cuarto/TFG/Recursos/Imagenes/Notas Musicales/CorcheaNegra.png") as Image;
+		GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (NewObj);
+		newNote.transform.position = new Vector3 (0.4f, 0.4f);
 	}
+
 	public void drawNote(int midi,int duration,GameObject noteImage,GameObject quaver,float position){
+		//prueba();
 		this.noteImage = noteImage;
 		this.quaver = quaver;
 		float xComponent = calculatePostion(position);
-			float value= midiToScreenCustomY(midi);
-            UnityEngine.Debug.Log ("Y: "+ value);
-			GameObject image = getTypeofNote(duration);
+		UnityEngine.Debug.Log ("Midi Y: "+ midi);
+		float value= midiToScreenCustomY(midi);
+        UnityEngine.Debug.Log ("Y: "+ value);
+		Sprite noteSprite = Resources.Load<Sprite>("Sprites/corchea-removebg-preview");
+		GameObject newNote = new GameObject(); //Create the GameObject
+        SpriteRenderer renderer = newNote.AddComponent<SpriteRenderer>();
+        renderer.sprite = noteSprite;
+		UnityEngine.Object.Instantiate<GameObject> (newNote); 
+		newNote.GetComponent<SpriteRenderer>().sprite = noteSprite;
+		newNote.transform.localScale = new Vector3(2.34f,2.34f,0);
+		newNote.transform.position = new Vector3 (xComponent, value);
+		listGameObjects.Add(newNote);
+		
 
-			
-			GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (image);
-			newNote.transform.position = new Vector3 (xComponent, value);
 
 	}
 	 private  GameObject getTypeofNote(int duration){

@@ -8,6 +8,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
+[Flags] public enum PetType
+{
+   Semibreve = 1, Minim = 2, Crotchet = 4, Quaver = 8, Semiquaver =16
+};
 public abstract class Exercise
 {
     public struct Note{
@@ -18,7 +23,7 @@ public abstract class Exercise
 
 
 
-public enum Durations{Semibreve = 1, Minim = 2, Crotchet = 4, Quaver = 8, Semiquaver =16}
+
 
     public string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
     public int midiInicial = 24;
@@ -49,15 +54,14 @@ public enum Durations{Semibreve = 1, Minim = 2, Crotchet = 4, Quaver = 8, Semiqu
 
     public int NoteToMidi(string note,int numberScale){
         int midi = 0;
-        Console.WriteLine("NOTA" + note);
+        UnityEngine.Debug.Log("NOTASS" +note +" "+   " "+ numberScale);
 
         for (int i = 0; i < notesPiano.Length; i++){
             if(notesPiano[i].Equals(note)){
-                Console.WriteLine("NOTASS" +midiInicial +" "+ i + " "+ numberScale);
+                UnityEngine.Debug.Log("NOTASS" +midiInicial +" "+ i + " "+ numberScale);
                midi =  midiInicial + i + 12 * (numberScale - 1);
             }
         }
-        Console.WriteLine(midi);
         return midi;
         
 

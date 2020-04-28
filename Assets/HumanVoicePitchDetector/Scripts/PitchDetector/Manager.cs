@@ -22,9 +22,16 @@ public sealed class Manager{
         }
     }
 
-    public  Exercise startExercise(string path){
-        Exercise exercise =parser.LoadJson5();
+    public  Exercise startExercise(){
+        Exercise exercise = null;
+        try{
+         exercise =parser.LoadJson5();
         exercise.getStringNotes();
+
+        }catch(DurationException e){
+            UnityEngine.Debug.Log("[EXCEPTION CATCHED]" + e.Message);
+        }
+
        
 
        return exercise;
@@ -35,6 +42,7 @@ public sealed class Manager{
     }
 
     public void drawScala(Exercise exercise,GameObject noteImage,GameObject quaver){
+        
         parser.LoadJson5();
 
         for (int i = 0; i < exercise.list_notes.Count; ++i) {
