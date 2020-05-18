@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Daos\PlayerDao.cs" />
      <Compile Include="Assets\Exceptions\DurationException.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\AutoDestroy.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\Durations.cs" />
@@ -60,26 +61,29 @@
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\ExerciseFactory.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\LongNotesExercise.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\NormalExercise.cs" />
+     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\Note.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\ScaleExercise.cs" />
+     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\StatisticsExercise.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\MicrophoneDemo.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\ArrayPool.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Downsample.cs" />
-     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\ExerciseScale.cs" />
-     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\ExerciseType.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\GUI.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\JsonParser.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Manager.cs" />
-     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\MayorScale.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\MicrophonePitchDetector.cs" />
-     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\MinorScale.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Params.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\RAPTPitchDetector.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\RAPTPitchDetectorExtensions.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Song.cs" />
-     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\SongCreator.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Window.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\TextMeshSharpener.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\ToggleText.cs" />
+     <Compile Include="Assets\Managers\ExerciseStatisticsManager.cs" />
+     <Compile Include="Assets\Managers\GeneralStatisticsManager.cs" />
+     <Compile Include="Assets\Managers\ManagerConnection.cs" />
+     <Compile Include="Assets\Model\Player.cs" />
+     <Compile Include="Assets\Model\Profile.cs" />
+     <Compile Include="Assets\Model\Routine.cs" />
      <Compile Include="Assets\SimpleJSON.cs" />
      <Compile Include="Assets\prueba.cs" />
  <Reference Include="Unity.Timeline.Editor">
@@ -288,6 +292,18 @@
  </Reference>
  <Reference Include="UnityEngine.XRModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a8/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+ </Reference>
+ <Reference Include="BouncyCastle.Crypto">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/BouncyCastle.Crypto.dll</HintPath>
+ </Reference>
+ <Reference Include="Google.Protobuf">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/Google.Protobuf.dll</HintPath>
+ </Reference>
+ <Reference Include="MySql.Data">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/MySql.Data.DLL</HintPath>
+ </Reference>
+ <Reference Include="renci.sshnet">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/renci.sshnet.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a8/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

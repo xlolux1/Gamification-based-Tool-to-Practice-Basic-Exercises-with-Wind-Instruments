@@ -5,14 +5,11 @@ using UnityEngine;
 using System.Diagnostics;
 using PitchDetector;
 using SimpleJSON;
-
 public sealed class Manager{
     private JsonParser parser = new JsonParser();
-
-
     private GUI graphicalInterface = new GUI();
     private readonly static Manager singleton = new Manager();
- 
+
     private Manager(){
     }
  
@@ -31,9 +28,6 @@ public sealed class Manager{
         }catch(DurationException e){
             UnityEngine.Debug.Log("[EXCEPTION CATCHED]" + e.Message);
         }
-
-       
-
        return exercise;
     }
 
@@ -42,12 +36,10 @@ public sealed class Manager{
     }
 
     public void drawScala(Exercise exercise,GameObject noteImage,GameObject quaver){
-        
         parser.LoadJson5();
-
         for (int i = 0; i < exercise.list_notes.Count; ++i) {
             var midi  = exercise.list_notes[i].midi;
-            int duration = (int)exercise.list_notes[i].duration;
+            Durations duration = exercise.list_notes[i].duration;
 
             graphicalInterface.drawNote(midi,duration,noteImage,quaver,i);
         }

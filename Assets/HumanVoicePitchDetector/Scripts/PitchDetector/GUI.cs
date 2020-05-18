@@ -5,18 +5,18 @@ using UnityEngine;
 using System.Diagnostics;
 using PitchDetector;
 using SimpleJSON;
- using UnityEngine.UI;
- using UnityEngine.Windows;
+using UnityEngine.UI;
+using UnityEngine.Windows;
 
 
 public class GUI{
 	private string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
-	    float x = -Camera.main.orthographicSize * Camera.main.aspect + 2;
-		float y = -0.8745f;
-		float yDistance = 0.2349f;
+	float x = -Camera.main.orthographicSize * Camera.main.aspect + 2;
+	float y = -0.8745f;
+	float yDistance = 0.2349f;
 	GameObject quaver;
     GameObject noteImage;
-	 List<GameObject> listGameObjects = new List<GameObject>();
+	List<GameObject> listGameObjects = new List<GameObject>();
 
 
     float positionXNext;
@@ -33,6 +33,7 @@ public class GUI{
 
 	public Sprite getInitialSprite(Durations dur,String colour){
 		Sprite sprit;
+		sprit = null;
 
 		if(dur == Durations.Semibreve){
 			switch (colour){
@@ -44,8 +45,10 @@ public class GUI{
               	break;
 			case "red":
 				sprit = Resources.Load<Sprite>("Sprites/semibreve/RedSemibreve");
+				break;
 			case "yellow":
 				sprit = Resources.Load<Sprite>("Sprites/semibreve/YellowSemibreve");
+				break;
 			}
 		}else if( dur == Durations.Minim){
 						switch (colour){
@@ -57,8 +60,10 @@ public class GUI{
               	break;
 			case "red":
 				sprit = Resources.Load<Sprite>("Sprites/minim/RedMinim");
+				break;
 			case "yellow":
 				sprit = Resources.Load<Sprite>("Sprites/minim/YellowMinim");
+				break;
 			}
 			
 		}else if (dur == Durations.Crotchet){
@@ -71,11 +76,13 @@ public class GUI{
               	break;
 			case "red":
 				sprit = Resources.Load<Sprite>("Sprites/semibreve/RedSemibreve");
+				break;
 			case "yellow":
 				sprit = Resources.Load<Sprite>("Sprites/semibreve/YellowSemibreve");
+				break;
 			}
 
-		}else if (dur == Durations.quaver){
+		}else if (dur == Durations.Quaver){
 						switch (colour){
           	case "green":
               	sprit = Resources.Load<Sprite>("Sprites/quaver/GreenQuaver");
@@ -85,8 +92,10 @@ public class GUI{
               	break;
 			case "red":
 				sprit = Resources.Load<Sprite>("Sprites/quaver/RedQuaver");
+				break;
 			case "yellow":
 				sprit = Resources.Load<Sprite>("Sprites/quaver/YellowQuaver");
+				break;
 			}
 		}
 
@@ -113,30 +122,20 @@ public class GUI{
     }
 	
 */
-	public void prueba(){
 
-
-		GameObject NewObj = new GameObject(); //Create the GameObject
-        Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
-
-		NewImage = Resources.Load("D:/Dropbox/Uni/Cuarto/TFG/Recursos/Imagenes/Notas Musicales/CorcheaNegra.png") as Image;
-		GameObject newNote = UnityEngine.Object.Instantiate<GameObject> (NewObj);
-		newNote.transform.position = new Vector3 (0.4f, 0.4f);
-	}
-
-	public void drawNote(int midi,int duration,GameObject noteImage,GameObject quaver,float position){
+	public void drawNote(int midi,Durations duration,GameObject noteImage,GameObject quaver,float position){
 		//prueba();
 		this.noteImage = noteImage;
 		this.quaver = quaver;
 		float xComponent = calculatePostion(position);
-		UnityEngine.Debug.Log ("Midi Y: "+ midi);
+		UnityEngine.Debug.Log ("Class[GUI] Method [drawNote] Midi Y: "+ midi);
 		float value= midiToScreenCustomY(midi);
-        UnityEngine.Debug.Log ("Y: "+ value);
-		Sprite noteSprite = Resources.Load<Sprite>("Sprites/corchea-removebg-preview");
+        UnityEngine.Debug.Log ("Class[GUI] Method [drawNote] Y: "+ value);
+		Sprite noteSprite = getInitialSprite(duration,"green");
 		GameObject newNote = new GameObject(); //Create the GameObject
         SpriteRenderer renderer = newNote.AddComponent<SpriteRenderer>();
         renderer.sprite = noteSprite;
-		UnityEngine.Object.Instantiate<GameObject> (newNote); 
+		//UnityEngine.Object.Instantiate<GameObject> (newNote); 
 		newNote.GetComponent<SpriteRenderer>().sprite = noteSprite;
 		newNote.transform.localScale = new Vector3(2.34f,2.34f,0);
 		newNote.transform.position = new Vector3 (xComponent, value);

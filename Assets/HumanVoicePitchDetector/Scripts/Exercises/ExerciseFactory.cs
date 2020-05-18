@@ -1,17 +1,27 @@
+
+
 using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
-
 using SimpleJSON;
+
+/*********************************************************************
+*
+* Class Name: ExerciseFactory
+* Author/s name: Antonio Pulido Hernánzed
+* Class description: This class implements the method Factory
+* design pattern in order to create differnt types of exercises
+**********************************************************************
+*/ 
 
 public class ExerciseFactory{
     public Exercise GetExercise(string type,JSONNode json){
         Exercise ex = null;
+
         switch(type){
             case "Scale":
                 var exercise = json["Scale"];
-                
                 ScaleExercise scale =createScale(exercise);
                 ex = scale;
                 break;
@@ -20,14 +30,12 @@ public class ExerciseFactory{
                 LongNotesExercise longNotes = createLongNotesExercise(exerciseLong);
                 ex = longNotes;
                 break;
-
             case "normalExercise":
                 var exerciseNormal = json["normalExercise"];
                 break;
         }
         ex.getStringNotes();
         return ex;
-
     }
     private  ScaleExercise createScale(JSONNode json){
     int beats = json["beats"].AsInt;
@@ -50,7 +58,7 @@ public class ExerciseFactory{
     var duration = json["duration"];
     var numberNotes = json["numberNotes"];
     LongNotesExercise longNotes =new LongNotesExercise(tune,beats,timeSignature,note,duration,numberNotes);
-    UnityEngine.Debug.Log(longNotes.ToString());
+    UnityEngine.Debug.Log("Class[ExerciseFactory] + method [createLongNotesExercise" + longNotes.ToString());
     return longNotes;
 }
 

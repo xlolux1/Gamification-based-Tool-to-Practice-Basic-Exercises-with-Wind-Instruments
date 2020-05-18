@@ -19,7 +19,7 @@ public Exercise LoadJson5(){
     var json = JSON.Parse(the_JSON_string);
     var type = json["type"].Value;        // versionString will be a string containing "1.0"
     var name = json["Exercise"]["ExerciseType"].Value;
-UnityEngine.Debug.Log("Creating json"+ json+" "+name);
+UnityEngine.Debug.Log("Class[JsonParser] method [LoadJson5] Creating json"+ json+" "+name);
     Exercise ex = null;
     switch(type){
         

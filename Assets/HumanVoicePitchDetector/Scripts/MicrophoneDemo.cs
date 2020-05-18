@@ -37,7 +37,10 @@ public class MicrophoneDemo : MonoBehaviour {
 	private const float secsPerScreen = 10f;
 	private float dbThres = -40;
 
-	private MayorScale song;
+	private int counterRightPitchDetected = 0;
+	private int counterTotalPitchDetected = 0;
+
+
 
 	private Queue<Tuple<PitchTime,int>> drawQueue = new Queue<Tuple<PitchTime,int>> ();
 	
@@ -91,36 +94,24 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 	public void LogPitch (List<float> pitchList, int samples, float db) {
 		
 		var midis = RAPTPitchDetectorExtensions.HerzToMidi (pitchList);
-		UnityEngine.Debug.Log ("detected " + pitchList.Count + " values from  " + samples + " samples, db:" + db);
+		UnityEngine.Debug.Log ("Class[MicrophoneDemo] method [LogPitch] detected " + pitchList.Count + " values from  " + samples + " samples, db:" + db);
 		UnityEngine.Debug.Log (midis.NoteString ());
 		Boolean green = false;
 		Boolean yellow = false;
+		
+		
 		 foreach (int number in midis){
+			 counterTotalPitchDetected = counterTotalPitchDetected + 1;
 			 UnityEngine.Debug.Log("MIDIS NUMBER: " +number);
 			if(number!=exercise.list_notes[currentNote].midi && number != exercise.list_notes[currentNote].midi+1  && number != exercise.list_notes[currentNote].midi-1){
-             watch.Reset();
-
 			}else if(number== exercise.list_notes[currentNote].midi+1 || number == exercise.list_notes[currentNote].midi-1){
 				yellow = true;
 
 			}else{
+				counterRightPitchDetected = counterRightPitchDetected + 1;
 				green = true;
 			}
 
-		 }
-
-		 if(green){
-			 if(watch.Elapsed.Milliseconds==0){
-				watch.Start();
-			 }
-			
-
-			 
-		 }else if(yellow){
-			 
-		 
-		 }else{
-			 
 		 }
 
 		 UnityEngine.Debug.Log ("Green: "+green+ "Yellow: "+yellow);
@@ -147,14 +138,20 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 	// Get pitch values from queue and draw on screen
 	void Update() {
 		
-		if(watch.Elapsed.Milliseconds+watch.Elapsed.Seconds*1000>=exercise.getBeatTimeSeconds()*(int)exercise.list_notes[currentNote].duration){
+		if(watch.Elapsed.Milliseconds+watch.Elapsed.Seconds*1000 >= 
+		exercise.getBeatTimeSeconds()*(int)exercise.list_notes[currentNote].duration){
 			watch.Stop();
+			exercise.list_notes[currentNote].setPercentageNote(this.counterRightPitchDetected,this.counterTotalPitchDetected);
+			UnityEngine.Debug.LogWarning ("Percentage Calculated: "+exercise.list_notes[currentNote].percentageNote);
+			this.counterRightPitchDetected = 0;
+			this.counterTotalPitchDetected = 0;
 			UnityEngine.Debug.LogWarning ("Update Note: "+currentNote);
-			currentNote=currentNote+1;
+			currentNote = currentNote+1;
 			if (currentNote ==exercise.list_notes.Count){
-				currentNote=0;
+				currentNote = 0;
 			}
 			watch.Reset();
+			watch.Start();
 
 		}
 		
@@ -171,7 +168,7 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 
 			UnityEngine.Debug.LogWarning ("Item NOTE: "+item.Item2 + "CURRENT" + exercise.list_notes[currentNote].midi + " midi" +midi);
 			
-			if(item.Item2==exercise.list_notes[currentNote].midi){
+			if(item.Item2==exercise.list_notes[currentNote].midi && this.currentNote == 0){
 				noteIndicatorPrefab=noteIndicatorGreenPrefab;
 							 if(watch.Elapsed.Milliseconds==0){
 				watch.Start();
@@ -179,8 +176,7 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 			}else if(item.Item2==exercise.list_notes[currentNote].midi+1 || item.Item2==exercise.list_notes[currentNote].midi+1){
 				noteIndicatorPrefab=noteIndicatorYellowPrefab;
 			}else{
-				noteIndicatorPrefab=noteIndicatorRedPrefab;
-				watch.Reset();
+				noteIndicatorPrefab = noteIndicatorRedPrefab;
 			}
 			
 
@@ -240,8 +236,6 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 		}*/
 		Exercise ex = Manager.Instance.startExercise();
 		exercise = ex;
-		 
-
 		Manager.Instance.drawScala(ex,noteImage,corchea);
 		
 	}
@@ -264,11 +258,4 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 		tmp.x -= amount;
 		transform.position = tmp;
 	}
-}
-
-public class MyClass
-{
-    public int level;
-    public float timeElapsed;
-    public string playerName;
 }

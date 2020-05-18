@@ -1,10 +1,11 @@
-
-
-
-
-
-
-
+/*********************************************************************
+*
+* Class Name: Exercise
+* Author/s name: Antonio Pulido Hernández
+* Class description: Represents a musical exercise
+*
+**********************************************************************
+*/ 
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,24 +16,13 @@ using System.Collections.Generic;
 };
 public abstract class Exercise
 {
-    public struct Note{
-    public int midi;
-    public Durations duration;
-    public Boolean dotted;
-    }
-
-
-
-
-
+    public string difficulty;
     public string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
     public int midiInicial = 24;
     public string tune;
     public int beats;
     public string timeSignature;
-
     public List<Note> list_notes = new List<Note>();
-
     public Exercise(){
         
     }
@@ -50,21 +40,14 @@ public abstract class Exercise
         return Convert.ToInt32(1/(beats/60)*1000)*positionNote;
     }
 
-
-
     public int NoteToMidi(string note,int numberScale){
         int midi = 0;
-        UnityEngine.Debug.Log("NOTASS" +note +" "+   " "+ numberScale);
-
         for (int i = 0; i < notesPiano.Length; i++){
             if(notesPiano[i].Equals(note)){
-                UnityEngine.Debug.Log("NOTASS" +midiInicial +" "+ i + " "+ numberScale);
                midi =  midiInicial + i + 12 * (numberScale - 1);
             }
         }
         return midi;
-        
-
     }
 
     public void getStringNotes(){
@@ -74,5 +57,4 @@ public abstract class Exercise
                UnityEngine.Debug.Log("DEBUG:" +"Midi:"+i.midi+"Duration:"+i.duration);
             }
     }
-
 }

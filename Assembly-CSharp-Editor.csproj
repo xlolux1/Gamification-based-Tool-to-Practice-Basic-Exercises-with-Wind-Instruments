@@ -277,6 +277,18 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a8/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="BouncyCastle.Crypto">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/BouncyCastle.Crypto.dll</HintPath>
+ </Reference>
+ <Reference Include="Google.Protobuf">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/Google.Protobuf.dll</HintPath>
+ </Reference>
+ <Reference Include="MySql.Data">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/MySql.Data.DLL</HintPath>
+ </Reference>
+ <Reference Include="renci.sshnet">
+ <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Assets/renci.sshnet.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>

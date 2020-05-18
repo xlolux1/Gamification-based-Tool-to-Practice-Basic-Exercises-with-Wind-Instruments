@@ -1,4 +1,12 @@
 using System;
+/*********************************************************************
+*
+* Class Name: LongNotesExercise
+* Author/s name: Antonio Pulido Hernández
+* Class description: A type of musical exercise
+*
+**********************************************************************
+*/ 
 public  class LongNotesExercise  : Exercise{
     private string note;
     private Durations duration;
@@ -26,10 +34,7 @@ public  class LongNotesExercise  : Exercise{
 
         for(int i = 0; i<numberNotes;i++){
                  int random  = rnd.Next(0, 6);
-                 Note  nextNote = new Note();
-                 nextNote.midi = midiFirstNote + random;
-                 nextNote.duration = this.duration;
-                 nextNote.dotted = false;
+                 Note  nextNote = new Note(midiFirstNote + random,this.duration,false);
                  list_notes.Add(nextNote);
         }
     }
