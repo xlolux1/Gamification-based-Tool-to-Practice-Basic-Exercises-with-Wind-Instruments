@@ -1,8 +1,10 @@
 public class Profile{
-    string instrumentName;
-    string tone;
+    public string instrument;
+    public string username;
 
-    public Profile(string instrumentName ,string tone){
+    public Profile(string _username ,string _instrument){
+        this.username =_username;
+        this.instrument = _instrument;
 
     }
 }

@@ -2,27 +2,19 @@ using System;
 using MySql.Data.MySqlClient;
 public class ManagerConnection{
 
-            public static void prueba()
-        {
-            string connetionString = null;
-            MySqlConnection cnn=null ;
-			connetionString = "server=sql7.freemysqlhosting.net;database=sql7340480;uid=sql7340480;pwd=kp5Jv9EDj2;port=3306";
-            cnn = new MySqlConnection(connetionString);
-            string idnumber="";
-                cnn.Open();
-                            
-            MySqlCommand cmd = cnn.CreateCommand();
-            cmd.CommandText = "select * from Player";
-                MySqlDataReader reader = cmd.ExecuteReader();
+    public static MySqlConnection getConnection(){
+        string connetionString = null;
+        MySqlConnection cnn=null ;
+		connetionString = "server=sql7.freemysqlhosting.net;database=sql7340480;uid=sql7340480;pwd=kp5Jv9EDj2;port=3306";
+        cnn = new MySqlConnection(connetionString);
+        cnn.Open();
+        return cnn;
+    }
 
-                UnityEngine.Debug.Log("CONNECTION");
-                while (reader.Read())
-                {
-                idnumber = reader.GetString(0);
-                }
-                UnityEngine.Debug.Log("HI"+ idnumber);
 
-        }
+    public static void closeConnection(MySqlConnection connection){
+        connection.Close();
+    }
         public static void prueba1(){
             /**
             string server = "database-music.cszyigxlid5s.us-east-1.rds.amazonaws.com";

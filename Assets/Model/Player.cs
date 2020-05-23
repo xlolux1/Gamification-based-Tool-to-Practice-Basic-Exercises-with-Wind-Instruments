@@ -2,15 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 public class Player{
-    string name;
-    string surname;
-    string email;
-    string username;
-    string password;
+    public string name;
+    public string surname;
+    public string email;
+    public string username;
+    public string password;
     List<Profile> profiles;
 
 
-    public Player(string name,string surname, string email,string username,string password){
+    public Player(string _username,string _name, string _surname,string _email,string _password){
+        this.name = _name;
+        this.surname = _surname;
+        this.email = _email;
+        this.username = _username;
+        this.password = _password;
 
     }
 
