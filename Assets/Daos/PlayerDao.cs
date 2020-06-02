@@ -21,6 +21,7 @@ namespace daos
             Player newPlayer = new Player(_username,_name,_surname,_email,_password);
             playersList.Add(newPlayer);
         }
+        reader.Close();
         return playersList;
     }
 
@@ -42,6 +43,7 @@ namespace daos
             selectedPlayer = new Player(_username,_name,_surname,_email,_password);
             
         }
+        reader.Close();
         return selectedPlayer;
     }
 
@@ -53,6 +55,7 @@ namespace daos
         UnityEngine.Debug.Log("INSERT INTO Player(username,name,surname,email,password) Values('"+newPlayer.username+"','"+
         newPlayer.name+"','"+newPlayer.surname+"','"+newPlayer.email+"','"+newPlayer.password+"');");
         MySqlDataReader reader = cmd.ExecuteReader();
+        reader.Close();
         
         return response;
     }

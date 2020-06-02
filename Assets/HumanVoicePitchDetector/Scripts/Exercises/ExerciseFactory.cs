@@ -16,13 +16,18 @@ using SimpleJSON;
 */ 
 
 public class ExerciseFactory{
+    public ScaleExercise scale;
+    public LongNotesExercise longNotes;
     public Exercise GetExercise(string type,JSONNode json){
         Exercise ex = null;
+        UnityEngine.Debug.Log("Class[ExerciseFactory]"+json);
 
         switch(type){
             case "Scale":
                 var exercise = json["Scale"];
+                UnityEngine.Debug.Log("Class[ExerciseFactory]"+json);
                 ScaleExercise scale =createScale(exercise);
+                this.scale =scale;
                 ex = scale;
                 break;
             case "LongNotesExercise":
@@ -38,18 +43,19 @@ public class ExerciseFactory{
         return ex;
     }
     private  ScaleExercise createScale(JSONNode json){
-    int beats = json["beats"].AsInt;
-    var tune = json["tune"].Value;
-    var timeSignature =json["timeSignature"].Value;
-    var firstNote =json["firstNote"].Value;
-    var intervals = json["intervals"];
-    var duration = json["duration"];
-    List<String> intervalsList = getIntervalScale(intervals);
-    ScaleExercise ExerciseScale =new ScaleExercise(tune,beats,timeSignature,firstNote,intervalsList,duration);
-    UnityEngine.Debug.Log(ExerciseScale.ToString());
-    ExerciseScale.getStringNotes();
-    return ExerciseScale;
-}
+        int beats = json["beats"].AsInt;
+        UnityEngine.Debug.Log("Class[ExerciseFactory] beats"+beats);
+        var tune = json["tune"].Value;
+        var timeSignature =json["timeSignature"].Value;
+        var firstNote =json["firstNote"].Value;
+        var scaleType = json["scaleType"];
+        var duration = json["duration"];
+       // List<String> intervalsList = getIntervalScale(intervals);
+        ScaleExercise ExerciseScale =new ScaleExercise(tune,beats,timeSignature,firstNote,scaleType,duration);
+        UnityEngine.Debug.Log(ExerciseScale.ToString());
+        ExerciseScale.getStringNotes();
+        return ExerciseScale;
+    }
     private  LongNotesExercise createLongNotesExercise(JSONNode json){
     int beats = json["beats"].AsInt;
     var tune = json["tune"].Value;

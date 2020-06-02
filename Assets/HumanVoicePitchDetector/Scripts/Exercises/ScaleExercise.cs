@@ -20,19 +20,24 @@ public  class ScaleExercise  : Exercise
     private int[] intervals= new int[7]{2,2,1,2,2,2,1};
     public int duration;
     public List<Intervals> intervalos;
+    public  string scaleTypes;
+
+    private List<string> intervalsMayorScale = new List<String>{ "tono", "tono", "semitono", "tono", "tono", "tono","semitono"};
 
     public ScaleExercise(){
         
     }
 
-    public ScaleExercise(string tune, int beats, string timeSignature,string firstNote,List<String> intervals,int duration)
+    public ScaleExercise(string tune, int beats, string timeSignature,string firstNote,string ScaleType,int duration)
     :base(tune,beats,timeSignature){
         this.firstNote = firstNote;
         this.duration = duration;
         if(!Enum.IsDefined(typeof(Durations), duration)){
-            throw new DurationException("Duration Exception"); 
+
+            throw new DurationException("Duration Exception"+duration); 
             
         }
+        this.setIntervals(ScaleType);
         createScale();
     }
 
@@ -40,7 +45,11 @@ public  class ScaleExercise  : Exercise
       return "Scale[Tune:"+tune+" beats:"+beats+" timeSignature:"+timeSignature+" firstNote"+firstNote+"]";
    }
 
-   private void  setIntervals(List<String> string_intervals){
+   private void  setIntervals(string scaleType){
+       List<String> string_intervals = null;
+       if(scaleType.Equals("Mayor Scale")){
+           string_intervals = intervalsMayorScale;
+       }
        int counter = 0;
        foreach (var interval in string_intervals) {
            Intervals inter ;
@@ -49,7 +58,7 @@ public  class ScaleExercise  : Exercise
            }else{
                 inter = Intervals.semitono;
            }
-           intervals1[counter] = inter;
+           this.intervals1[counter] = inter;
            counter ++;
         }
    }
@@ -88,4 +97,5 @@ public  class ScaleExercise  : Exercise
            list_notes.Add(not);
         }
     }
+    
 }

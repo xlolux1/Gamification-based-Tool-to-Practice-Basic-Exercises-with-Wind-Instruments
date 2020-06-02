@@ -18,18 +18,25 @@ public class RegisterMenuScript : MonoBehaviour{
         string name = nameField.text;
         string surname = surnameField.text;
         string email = emailField.text;
-        string response = Manager.Instance.Register(username,password,name,surname,email);
-        UnityEngine.Debug.Log("[REGISTER MENU SCRIPT]:"+response);
-        if(response =="OK"){
-            RegisterMenu.SetActive(false);
-            loginMenu.SetActive(true);
+        if(username!= "" && password !="" && name!="" && surname !="" && email!=""){
+                    string response = Manager.Instance.Register(username,password,name,surname,email);
+            UnityEngine.Debug.Log("[REGISTER MENU SCRIPT]:"+response);
+            if(response =="OK"){
+                RegisterMenu.SetActive(false);
+                loginMenu.SetActive(true);
+            }
         }
-        
+
 
     }
 
     public void goBack(){
             RegisterMenu.SetActive(false);
+            this.usernameField.text="";
+            this.nameField.text="";
+            this.surnameField.text="";
+            this.emailField.text="";
+            this.passwordField.text="";
             loginMenu.SetActive(true);
     }
 

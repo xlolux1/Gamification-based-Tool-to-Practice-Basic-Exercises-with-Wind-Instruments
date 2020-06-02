@@ -54,11 +54,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CreateScaleScript.cs" />
+     <Compile Include="Assets\CreativeModeScript.cs" />
      <Compile Include="Assets\Daos\ExerciseDao.cs" />
+     <Compile Include="Assets\Daos\LongNotesDao.cs" />
      <Compile Include="Assets\Daos\PlayerDao.cs" />
      <Compile Include="Assets\Daos\ProfiDao.cs" />
-     <Compile Include="Assets\Daos\ProfileRoutines.cs" />
+     <Compile Include="Assets\Daos\ProfileRoutinesDao.cs" />
+     <Compile Include="Assets\Daos\RoutineExerciseDao.cs" />
      <Compile Include="Assets\Daos\RoutinesDao.cs" />
+     <Compile Include="Assets\Daos\ScaleDao.cs" />
      <Compile Include="Assets\Exceptions\DurationException.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\AutoDestroy.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\Durations.cs" />
@@ -72,7 +76,7 @@
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\MicrophoneDemo.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\ArrayPool.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Downsample.cs" />
-     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\GUI.cs" />
+     <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\GuiManager.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\JsonParser.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\MicrophonePitchDetector.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Params.cs" />
@@ -92,6 +96,9 @@
      <Compile Include="Assets\Model\RoutinesEx.cs" />
      <Compile Include="Assets\RegisterMenuScript.cs" />
      <Compile Include="Assets\SimpleJSON.cs" />
+     <Compile Include="Assets\chooseModeScript.cs" />
+     <Compile Include="Assets\practiceModeScript.cs" />
+     <Compile Include="Assets\profileScript.cs" />
      <Compile Include="Assets\prueba.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />

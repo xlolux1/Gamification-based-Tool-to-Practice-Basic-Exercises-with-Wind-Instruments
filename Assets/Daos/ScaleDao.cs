@@ -3,21 +3,31 @@ using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ScaleDao{
+public class ScaleDao  : ExerciseDao{
 
-
-
-    public string insertRoutine(MySqlConnection connection,ScaleExercise scaleExerices){
+    public string insertScale(MySqlConnection connection,ScaleExercise scale){
+        this.insertExercise(connection,scale);
         MySqlCommand cmd = connection.CreateCommand();
-
-        cmd.CommandText="Select count(*) from Exercise;";
-
-        cmd.CommandText= "INSERT INTO Exercise(idExercise,tune,signature,beats) Values ('"+1+"',";
-
-
-        cmd.CommandText= "INSERT INTO Routines(idRoutine,description,days) Values("+routine.id+","+
-        routine.description+","+routine.days+");";
+        cmd.CommandText="INSERT INTO ScaleExercise(idExercise,typeScale,firstNote,duration) Values("+scale.idExercise+",'"
+        +scale.scaleTypes+"','"+scale.firstNote+"','"+scale.duration+"');";
         MySqlDataReader reader = cmd.ExecuteReader();
+        reader.Close();
         return null;
+    }
+
+    public bool isScale(MySqlConnection connection,int idExercise){
+        bool isScale= false;
+        int count =-1;
+        MySqlCommand cmd = connection.CreateCommand();
+        cmd.CommandText="Select count(*) from ScaleExercise Where idExercise="+idExercise+";";
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read()){
+             count = reader.GetInt32(0);
+        }
+        reader.Close();
+        if(count == 1){
+            isScale = true;
+        }
+        return isScale;
     }
 }

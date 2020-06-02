@@ -14,9 +14,11 @@ using System.Collections.Generic;
 {
    Semibreve = 1, Minim = 2, Crotchet = 4, Quaver = 8, Semiquaver =16
 };
-public abstract class Exercise
+public  class Exercise
 {
     public string difficulty;
+    public int idExercise;
+    public string description;
     public string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
     public int midiInicial = 24;
     public string tune;
@@ -25,6 +27,15 @@ public abstract class Exercise
     public List<Note> list_notes = new List<Note>();
     public Exercise(){
         
+    }
+    
+    public Exercise(int _idExercise,string _difficulty,string _description,string _tune,string _timeSignature, int _beats){
+        this.idExercise = _idExercise;
+        this.difficulty = _difficulty;
+        this.description = _description;
+        this.tune = _tune;
+        this.timeSignature = _timeSignature;
+        this.beats = _beats;
     }
 
     public Exercise(string tune,int beats,string timeSignature){

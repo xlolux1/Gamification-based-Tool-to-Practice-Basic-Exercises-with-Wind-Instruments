@@ -1,19 +1,21 @@
 using System;
 using MySql.Data.MySqlClient;
 public class ManagerConnection{
+    string connectionString;
+    MySqlConnection connection;
 
-    public static MySqlConnection getConnection(){
-        string connetionString = null;
-        MySqlConnection cnn=null ;
-		connetionString = "server=sql7.freemysqlhosting.net;database=sql7340480;uid=sql7340480;pwd=kp5Jv9EDj2;port=3306";
-        cnn = new MySqlConnection(connetionString);
-        cnn.Open();
-        return cnn;
+    public  MySqlConnection getConnection(){
+        return this.connection;
+    }
+    public ManagerConnection(string _connectionString){
+        this.connectionString = _connectionString;
+        this.connection = new MySqlConnection(this.connectionString);
+        this.connection.Open();
     }
 
 
-    public static void closeConnection(MySqlConnection connection){
-        connection.Close();
+    public  void closeConnection(){
+        this.connection.Close();
     }
         public static void prueba1(){
             /**
