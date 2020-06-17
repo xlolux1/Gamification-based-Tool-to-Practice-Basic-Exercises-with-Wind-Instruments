@@ -15,6 +15,7 @@ public class ProfiDao{
         UnityEngine.Debug.Log("INSERT INTO Profi(username,instrument) Values('"+newPlayer.username+"','"+
         instrument+"')");
         MySqlDataReader reader = cmd.ExecuteReader();
+         reader.Close();
 
         return null;
     }

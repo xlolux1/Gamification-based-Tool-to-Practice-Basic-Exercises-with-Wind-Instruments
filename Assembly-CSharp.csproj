@@ -53,9 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CreateScaleScript.cs" />
-     <Compile Include="Assets\CreativeModeScript.cs" />
      <Compile Include="Assets\Daos\ExerciseDao.cs" />
+     <Compile Include="Assets\Daos\ExercisePlayedInRoutineDao.cs" />
      <Compile Include="Assets\Daos\LongNotesDao.cs" />
      <Compile Include="Assets\Daos\PlayerDao.cs" />
      <Compile Include="Assets\Daos\ProfiDao.cs" />
@@ -64,6 +63,7 @@
      <Compile Include="Assets\Daos\RoutinesDao.cs" />
      <Compile Include="Assets\Daos\ScaleDao.cs" />
      <Compile Include="Assets\Exceptions\DurationException.cs" />
+     <Compile Include="Assets\GameMusicControl.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\AutoDestroy.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\Durations.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\Exercises\Exercise.cs" />
@@ -86,7 +86,6 @@
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\PitchDetector\Window.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\TextMeshSharpener.cs" />
      <Compile Include="Assets\HumanVoicePitchDetector\Scripts\ToggleText.cs" />
-     <Compile Include="Assets\LoginMenu.cs" />
      <Compile Include="Assets\Managers\ExerciseStatisticsManager.cs" />
      <Compile Include="Assets\Managers\GeneralStatisticsManager.cs" />
      <Compile Include="Assets\Managers\Manager.cs" />
@@ -94,12 +93,19 @@
      <Compile Include="Assets\Model\Player.cs" />
      <Compile Include="Assets\Model\Profile.cs" />
      <Compile Include="Assets\Model\RoutinesEx.cs" />
-     <Compile Include="Assets\RegisterMenuScript.cs" />
-     <Compile Include="Assets\SimpleJSON.cs" />
-     <Compile Include="Assets\chooseModeScript.cs" />
-     <Compile Include="Assets\practiceModeScript.cs" />
-     <Compile Include="Assets\profileScript.cs" />
+     <Compile Include="Assets\UserInterface\CreateScaleScript.cs" />
+     <Compile Include="Assets\UserInterface\CreativeModeScript.cs" />
+     <Compile Include="Assets\UserInterface\LoginMenu.cs" />
+     <Compile Include="Assets\UserInterface\RegisterMenuScript.cs" />
+     <Compile Include="Assets\UserInterface\SimpleJSON.cs" />
+     <Compile Include="Assets\UserInterface\StatisticsModeScript.cs" />
+     <Compile Include="Assets\UserInterface\chooseModeScript.cs" />
+     <Compile Include="Assets\UserInterface\practiceModeScript.cs" />
+     <Compile Include="Assets\UserInterface\profileScript.cs" />
+     <Compile Include="Assets\controlScript.cs" />
+     <Compile Include="Assets\createLongNotes.cs" />
      <Compile Include="Assets\prueba.cs" />
+     <Compile Include="Assets\sucessfulPanelScript.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

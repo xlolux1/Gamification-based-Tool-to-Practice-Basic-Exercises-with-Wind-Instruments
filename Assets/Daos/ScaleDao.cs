@@ -30,4 +30,20 @@ public class ScaleDao  : ExerciseDao{
         }
         return isScale;
     }
+    public ScaleExercise getScale(MySqlConnection connection, int idScale,Exercise ex){
+        UnityEngine.Debug.Log("GET SCALE"+idScale);
+        ScaleExercise scale = null;
+        MySqlCommand cmd = connection.CreateCommand();
+        cmd.CommandText="Select * from ScaleExercise Where idExercise="+idScale+";";
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while(reader.Read()){
+            string typeScale = reader.GetString(1);
+            string firstNote = reader.GetString(2);
+            int duration = reader.GetInt32(3);
+            UnityEngine.Debug.Log("GET SCALE"+ typeScale);
+            scale = new ScaleExercise(ex.tune,ex.beats,ex.timeSignature,firstNote,typeScale,duration);
+        }
+        reader.Close();
+        return scale;
+    }
 }

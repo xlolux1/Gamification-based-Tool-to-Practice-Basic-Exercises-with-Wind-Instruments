@@ -32,6 +32,7 @@ public  class ScaleExercise  : Exercise
     :base(tune,beats,timeSignature){
         this.firstNote = firstNote;
         this.duration = duration;
+        this.scaleTypes = ScaleType;
         if(!Enum.IsDefined(typeof(Durations), duration)){
 
             throw new DurationException("Duration Exception"+duration); 
@@ -64,34 +65,28 @@ public  class ScaleExercise  : Exercise
    }
 
        public  void createScale(){
-        
         string[] words = firstNote.Split(' ');
         string initialNote = words[0];
         UnityEngine.Debug.Log ("initial: "+ initialNote);
         string intString = words[1];
         int numberScale = 0;
-
         if (!Int32.TryParse(intString, out numberScale)){
             numberScale = -1;
         }
          int sum = 0;
          int midi = NoteToMidi(initialNote ,numberScale);
-        UnityEngine.Debug.Log ("MIDI X: "+ midi);
         for(int i = 0; i <= 7; i++ ){
             List<double> midiDuration = new List<double>();
             
             if(i != 0){
-                UnityEngine.Debug.Log ("interval: "+ intervals[i-1]);
                 sum = sum + (int)intervals[i-1];
 
             }
-            UnityEngine.Debug.Log ("sum: "+ sum);
            int midiBase = midi;
            midiBase = midiBase + sum;
-           UnityEngine.Debug.Log ("midiBase: "+ midiBase);
+           UnityEngine.Debug.Log ("[Create scale]Midi note: "+ midiBase);
            Durations realDuration = (Durations)duration;
            Note not =new Note(midiBase,realDuration,false);
-           
            midiDuration.Add(midiBase);
            midiDuration.Add(duration);
            list_notes.Add(not);

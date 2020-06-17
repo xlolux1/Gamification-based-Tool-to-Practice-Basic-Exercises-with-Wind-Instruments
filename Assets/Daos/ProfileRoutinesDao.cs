@@ -13,8 +13,22 @@ public class ProfileRoutinesDao{
         cmd.CommandText= "INSERT INTO PlayerRoutines(idRoutine,creative,username,instrument) Values("+routine.id+","+
         +routine.creative+",'"+ profile.username+"','"+profile.instrument+"');";
         MySqlDataReader reader = cmd.ExecuteReader();
+        
+
         reader.Close();
         return null;
+    }
+
+    public int getNumberRoutinesFromProfile(Profile profile,MySqlConnection connection){
+        int count = 0;
+        MySqlCommand cmd = connection.CreateCommand();
+        cmd.CommandText= "Select Count(*) From PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative<>"+1+";";
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read()){
+             count =reader.GetInt32(0);
+        }
+        reader.Close();
+        return count;
     }
 
     public List<RoutinesEx> getRoutinesProfile(Profile profile,MySqlConnection connection){
@@ -47,6 +61,21 @@ public class ProfileRoutinesDao{
         MySqlCommand cmd = connection.CreateCommand();
         UnityEngine.Debug.Log("Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative <> 1;");
         cmd.CommandText = "Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative <> 1;";
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read()){
+            int idRoutine = reader.GetInt32(0);
+            listIdRoutines.Add(idRoutine);
+            UnityEngine.Debug.Log("ID routine"+idRoutine);
+        }
+        reader.Close();
+        return listIdRoutines;
+
+    }
+        public List<int> getRoutinesIdProfile(Profile profile,MySqlConnection connection){
+        List<int> listIdRoutines = new List<int>();
+        MySqlCommand cmd = connection.CreateCommand();
+        UnityEngine.Debug.Log("Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative <> 1;");
+        cmd.CommandText = "Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"';";
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read()){
             int idRoutine = reader.GetInt32(0);

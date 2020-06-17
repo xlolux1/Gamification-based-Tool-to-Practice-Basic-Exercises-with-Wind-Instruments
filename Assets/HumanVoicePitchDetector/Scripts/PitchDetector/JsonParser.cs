@@ -15,6 +15,8 @@ public class JsonParser
 
 
     public Exercise LoadJson5(){
+        UnityEngine.Debug.Log("HIIIIIIIIIII");
+        
         string the_JSON_string = System.IO.File.ReadAllText(@"C:\Users\anton\Ejercicio3.JSON");
 
         var json = JSON.Parse(the_JSON_string);

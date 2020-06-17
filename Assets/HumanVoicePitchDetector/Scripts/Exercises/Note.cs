@@ -11,6 +11,12 @@
     }
 
     public void setPercentageNote(float rightPitch,float totalPitch){
-        this.percentageNote = rightPitch/totalPitch;
+        if(totalPitch == 0){
+            this.percentageNote = 0;
+            
+        }else{
+            this.percentageNote = rightPitch/totalPitch;
+        }
+        
     }
 }

@@ -20,12 +20,11 @@ public class ExerciseFactory{
     public LongNotesExercise longNotes;
     public Exercise GetExercise(string type,JSONNode json){
         Exercise ex = null;
-        UnityEngine.Debug.Log("Class[ExerciseFactory]"+json);
+        UnityEngine.Debug.Log("[ExerciseFactory][GetExercise]"+json);
 
         switch(type){
             case "Scale":
                 var exercise = json["Scale"];
-                UnityEngine.Debug.Log("Class[ExerciseFactory]"+json);
                 ScaleExercise scale =createScale(exercise);
                 this.scale =scale;
                 ex = scale;
@@ -44,7 +43,6 @@ public class ExerciseFactory{
     }
     private  ScaleExercise createScale(JSONNode json){
         int beats = json["beats"].AsInt;
-        UnityEngine.Debug.Log("Class[ExerciseFactory] beats"+beats);
         var tune = json["tune"].Value;
         var timeSignature =json["timeSignature"].Value;
         var firstNote =json["firstNote"].Value;

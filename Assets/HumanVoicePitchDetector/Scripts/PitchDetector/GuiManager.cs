@@ -11,21 +11,14 @@ using UnityEngine.Windows;
 
 public class GuiManager{
 	private string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
-	float x = -Camera.main.orthographicSize * Camera.main.aspect + 2;
-	float y = -0.8745f;
+	float x = -Camera.main.orthographicSize * Camera.main.aspect + 4;
+	float y = -0.955f;
 	float yDistance = 0.2349f;
 	GameObject quaver;
     GameObject noteImage;
-	List<GameObject> listGameObjects = new List<GameObject>();
-
-
+	public List<GameObject> listGameObjects = new List<GameObject>();
     float positionXNext;
-     float notesXDistance;
-
-
-     public GuiManager(){
-
-     }
+    float notesXDistance;
 
     public void drawMusicStaff(){
 
@@ -34,6 +27,7 @@ public class GuiManager{
 	public Sprite getInitialSprite(Durations dur,String colour){
 		Sprite sprit;
 		sprit = null;
+		UnityEngine.Debug.Log ("Class[GUI] Method [getInitialSprite] Duration Y: "+ dur);
 
 		if(dur == Durations.Semibreve){
 			switch (colour){
@@ -51,7 +45,8 @@ public class GuiManager{
 				break;
 			}
 		}else if( dur == Durations.Minim){
-						switch (colour){
+			
+			switch (colour){
           	case "green":
               	sprit = Resources.Load<Sprite>("Sprites/minim/GreenMinim");
               	break;
@@ -69,16 +64,16 @@ public class GuiManager{
 		}else if (dur == Durations.Crotchet){
 						switch (colour){
           	case "green":
-              	sprit = Resources.Load<Sprite>("Sprites/semibreve/GreenSemibreve");
+              	sprit = Resources.Load<Sprite>("Sprites/crotchet/GreenCrotchet");
               	break;
           	case "black":
-              	sprit = Resources.Load<Sprite>("Sprites/semibreve/BlackSemibreve");
+              	sprit = Resources.Load<Sprite>("Sprites/crotchet/blackCrotchet");
               	break;
 			case "red":
-				sprit = Resources.Load<Sprite>("Sprites/semibreve/RedSemibreve");
+				sprit = Resources.Load<Sprite>("Sprites/crotchet/RedCrotchet");
 				break;
 			case "yellow":
-				sprit = Resources.Load<Sprite>("Sprites/semibreve/YellowSemibreve");
+				sprit = Resources.Load<Sprite>("Sprites/crotchet/YellowCrotchet");
 				break;
 			}
 
@@ -131,7 +126,7 @@ public class GuiManager{
 		UnityEngine.Debug.Log ("Class[GUI] Method [drawNote] Midi Y: "+ midi);
 		float value= midiToScreenCustomY(midi);
         UnityEngine.Debug.Log ("Class[GUI] Method [drawNote] Y: "+ value);
-		Sprite noteSprite = getInitialSprite(duration,"green");
+		Sprite noteSprite = getInitialSprite(duration,"black");
 		GameObject newNote = new GameObject(); //Create the GameObject
         SpriteRenderer renderer = newNote.AddComponent<SpriteRenderer>();
         renderer.sprite = noteSprite;
@@ -158,6 +153,16 @@ public class GuiManager{
 
 	}
 
+	private int transformSignature(string signature){
+		int variation = 0;
+		switch(signature){
+			case "SiB":
+			variation = 1;
+			break;
+		}
+		return variation;
+	}
+
 
 
 public enum Pitchs{Mi = 0, Fa = 1, FaS =2, Sol = 3, SolS = 4 ,La = 5, LaS =6, Si = 7, Do =8, DoS = 9, Re = 10, ReS =11}
@@ -170,52 +175,52 @@ public enum Pitchs{Mi = 0, Fa = 1, FaS =2, Sol = 3, SolS = 4 ,La = 5, LaS =6, Si
 
 		Pitchs foo = (Pitchs)resto;
 		float newY = 0.0f;
-UnityEngine.Debug.Log ("Midiiiiiii Y Custom: "+ midiNote +foo);
+//UnityEngine.Debug.Log ("Midiiiiiii Y Custom: "+ midiNote +foo);
 		switch(foo){
 			case Pitchs.Mi:
 				newY = 0;
 				break;
 
 			case Pitchs.Fa:
-				newY = yDistance;
+				newY = this.yDistance;
 
 			break;
 			case Pitchs.FaS:
-				newY =yDistance;
+				newY = this.yDistance;
 				break;
 			case Pitchs.Sol:
-				newY =yDistance*2f;
+				newY = this.yDistance * 2f;
 
 			break;
 
 			case Pitchs.SolS:
-				newY = yDistance*2f;
+				newY = this.yDistance * 2f;
 				break;
 			case Pitchs.La:
-			newY = yDistance*3f;
-
-			break;
+				newY = this.yDistance * 3f;
+				break;
 
 			case Pitchs.LaS:
-				newY =yDistance*3f;
+				newY = this.yDistance * 3f;
 				break;
 			case Pitchs.Si:
-			newY =yDistance*4f;
-
-			break;
-			case Pitchs.Do:
-			newY =yDistance*5f;
+				newY = this.yDistance * 4f;
 				break;
-			case Pitchs.DoS:
-			newY =  yDistance*5f;
 
-			break;
+			case Pitchs.Do:
+				newY = this.yDistance * 5f;
+				break;
+
+			case Pitchs.DoS:
+				newY =  this.yDistance * 5f;
+				break;
+
 			case Pitchs.Re:
-			newY = yDistance*6f;
+			newY = this.yDistance * 6f;
 				break;
 
 			case Pitchs.ReS:
-			newY = yDistance*6f;
+				newY = this.yDistance * 6f;
 				break;
 
 		}

@@ -29,7 +29,7 @@ public class RoutineExerciseDao{
         MySqlCommand cmd = connection.CreateCommand();
         List<Tuple<int, string>>  listExercises = new List<Tuple<int, string>>();
         List<int> listIds = new List<int>();
-        cmd.CommandText ="Select idExercise from ExercisesInRoutines Where idRoutine="+routine.id;
+        cmd.CommandText ="Select idExercise from ExercisesInRoutines Where idRoutine="+routine.id+";";
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read()){
             int id = reader.GetInt32(0);
@@ -58,6 +58,18 @@ public class RoutineExerciseDao{
         }
         
         return exercises;
+    }
+    public int getNumberExercisesFromIdRoutine(MySqlConnection connection,int idRoutine){
+        MySqlCommand cmd = connection.CreateCommand();
+        int count = 0;
+        cmd.CommandText ="Select count(*) from ExercisesInRoutines Where idRoutine="+idRoutine+";";
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read()){
+             count = reader.GetInt32(0);
+        }
+        reader.Close();
+        return count;
+
     }
 
 }

@@ -12,8 +12,8 @@ public sealed class Manager{
     private JsonParser parser = new JsonParser();
     private GuiManager graphicalInterface = new GuiManager();
     private readonly static Manager singleton = new Manager();
-    private ManagerConnection manConnection = 
-    new ManagerConnection( "server=sql7.freemysqlhosting.net;database=sql7340480;uid=sql7340480;pwd=kp5Jv9EDj2;port=3306;Convert Zero Datetime=True");
+    public ManagerConnection manConnection = 
+    new ManagerConnection( "server=sql7.freemysqlhosting.net;database=sql7347571;uid=sql7347571;pwd=zM52Wy9cK4;port=3306;Convert Zero Datetime=True");
     private ProfiDao daoProfi = new ProfiDao();
     private PlayerDao daoPlayer = new PlayerDao();
     private RoutinesDao daoRoutines = new RoutinesDao();
@@ -22,7 +22,9 @@ public sealed class Manager{
     private ExerciseDao daoExercise = new ExerciseDao();
     private ScaleDao daoScale = new ScaleDao();
     private Player currentPlayer;
-    private Profile currentProfile;
+    public Profile currentProfile;
+    public Exercise currentExercise;
+
 
     private Manager(){
     }
@@ -51,15 +53,31 @@ public sealed class Manager{
     }
 
     public void drawScala(Exercise exercise,GameObject noteImage,GameObject quaver){
-        parser.LoadJson5();
+        //parser.LoadJson5();
         for (int i = 0; i < exercise.list_notes.Count; ++i) {
             var midi  = exercise.list_notes[i].midi;
             Durations duration = exercise.list_notes[i].duration;
+            UnityEngine.Debug.Log("[HIIIIIIIIIIII]");
 
             graphicalInterface.drawNote(midi,duration,noteImage,quaver,i);
         }
         //graphicalInter
         //graphicalInterface.drawScala(scale,noteImage);
+    }
+
+    public void changeColour(Durations dur,double percentage,int position){
+        string colour="red";
+        if(percentage >= 0.0 && percentage <0.4){
+            colour = "red";
+        }else if(percentage >= 0.4 && percentage <=0.7){
+            colour = "yellow";
+        }else{
+            colour = "green";
+        }
+
+
+        Sprite sprit = graphicalInterface.getInitialSprite(dur,colour);
+        graphicalInterface.listGameObjects[position].GetComponent<SpriteRenderer>().sprite = sprit;
     }
 
 
@@ -129,7 +147,7 @@ public sealed class Manager{
                 response = "Username already exists";
             }catch(Exception e){
                 this.manConnection.closeConnection();
-                UnityEngine.Debug.Log("[PLAYER DAO EXCEPTION]"+ "Something went wrong creating user");
+                UnityEngine.Debug.Log("[PLAYER DAO EXCEPTION]"+e.Message);
                 response = "Something went wrong creating user";
             }
             //response = "This username is already in use";
@@ -192,6 +210,7 @@ public sealed class Manager{
         try{
             this.daoScale.insertScale(sqlConection,scale);
         }catch(Exception e){
+            UnityEngine.Debug.Log("[Manager][InsertScale]:"+e.Message);
             this.manConnection.closeConnection();
 
         }
@@ -253,6 +272,32 @@ public sealed class Manager{
         return idCreativeRoutine;
     }
 
+    public string setCurrentExercise(int idExercise){
+         MySqlConnection sqlConection = manConnection.getConnection();
+        string response="OK";
+        Exercise ex = null;
+        ScaleExercise scale = null;
+        try{
+
+             ex = this.daoExercise.getExerciseFromId(sqlConection,idExercise);
+        }catch(Exception e){
+            this.manConnection.closeConnection();
+            UnityEngine.Debug.Log("[set current Exercise form ID EXCEPTION]"+ e.ToString());
+        }
+        try{
+            if(this.daoScale.isScale(sqlConection,idExercise)){
+                ex = this.daoScale.getScale(sqlConection,idExercise,ex);
+
+            }
+
+        }catch(Exception e){
+
+        }
+        this.currentExercise = ex;
+        return response;
+       
+    }
+
     public string GetExercise(int idExercise){
         MySqlConnection sqlConection = manConnection.getConnection();
         string response="OK";
@@ -264,6 +309,7 @@ public sealed class Manager{
             this.manConnection.closeConnection();
             UnityEngine.Debug.Log("[set current Exercise form ID EXCEPTION]"+ e.ToString());
         }
+        this.currentExercise = ex;
         return response;
 
     }
@@ -333,5 +379,41 @@ public sealed class Manager{
         }
         return listRoutines;
     }
-    
+
+    public int getNumberRoutinesProfile(string username, string instrument){
+        MySqlConnection sqlConection = manConnection.getConnection();
+        Profile profi = new Profile(username,instrument);
+        int number = -1;
+        try{
+            number = this.daoProfileRoutines.getNumberRoutinesFromProfile(profi,sqlConection);
+
+        }catch(Exception e){
+            this.manConnection.closeConnection();
+            UnityEngine.Debug.Log("[Manager][getNumberRoutinesProfile]"+e.Message);
+        }
+        return number;
+        
+    }
+    public int getNumberExercises(string username,string instrument){
+        MySqlConnection sqlConection = manConnection.getConnection();
+        Profile profi = new Profile(username,instrument);
+        List<int> listRoutinesIds = new List<int>();
+        int count = 0;
+        try{
+           listRoutinesIds = this.daoProfileRoutines.getRoutinesIdProfile(profi,sqlConection);
+
+        }catch(Exception e){
+            this.manConnection.closeConnection();
+            UnityEngine.Debug.Log("[Manager][getNumberExercises]"+e.Message);
+        }
+        try{
+            for(int i = 0;i<listRoutinesIds.Count;i++){
+                count = this.daoRoutineExercise.getNumberExercisesFromIdRoutine(sqlConection,listRoutinesIds[i])+ count;
+            }
+        }catch(Exception e){
+            UnityEngine.Debug.Log("[Manager][getNumberExercisesFromIdRoutine]"+e.Message);
+        this.manConnection.closeConnection();
+        }
+        return count;
+    }
 }

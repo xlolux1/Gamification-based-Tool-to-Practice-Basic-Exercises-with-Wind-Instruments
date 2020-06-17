@@ -29,6 +29,7 @@ public  class Exercise
         
     }
     
+    
     public Exercise(int _idExercise,string _difficulty,string _description,string _tune,string _timeSignature, int _beats){
         this.idExercise = _idExercise;
         this.difficulty = _difficulty;
@@ -43,13 +44,21 @@ public  class Exercise
         this.beats = beats;
         this.timeSignature =  timeSignature;
     }
-        public  int getBeatTimeSeconds(){
-        return  Convert.ToInt32(1/(beats/60)*1000);
+        public  double getBeatTimeSeconds(){
+        return  (1/(Convert.ToDouble(this.beats)/60));
     }
+
 
     public int getSecondsofNote(int positionNote){
         return Convert.ToInt32(1/(beats/60)*1000)*positionNote;
     }
+
+    public int getTimeRefence(){
+        string[] timeSplit = this.timeSignature.Split('/');
+        int unitTime = Convert.ToInt32(timeSplit[1]);
+        return unitTime;
+    }
+
 
     public int NoteToMidi(string note,int numberScale){
         int midi = 0;
