@@ -6,7 +6,6 @@ using System.Diagnostics;
 using PitchDetector;
 using SimpleJSON;
 using UnityEngine.UI;
-using UnityEngine.Windows;
 
 
 public class GuiManager{

@@ -7,13 +7,15 @@ using PitchDetector;
 using SimpleJSON;
 using MySql.Data.MySqlClient;
 using daos;
+using UnityEngine.Networking;
+
 public sealed class Manager{
 
     private JsonParser parser = new JsonParser();
     private GuiManager graphicalInterface = new GuiManager();
     private readonly static Manager singleton = new Manager();
     public ManagerConnection manConnection = 
-    new ManagerConnection( "server=sql7.freemysqlhosting.net;database=sql7347571;uid=sql7347571;pwd=zM52Wy9cK4;port=3306;Convert Zero Datetime=True");
+    new ManagerConnection( "server=sql7.freemysqlhosting.net;database=sql7350526;uid=sql7350526;pwd=aBYDFDS6pD;port=3306;Convert Zero Datetime=True");
     private ProfiDao daoProfi = new ProfiDao();
     private PlayerDao daoPlayer = new PlayerDao();
     private RoutinesDao daoRoutines = new RoutinesDao();
@@ -21,7 +23,7 @@ public sealed class Manager{
     private ProfileRoutinesDao daoProfileRoutines = new ProfileRoutinesDao();
     private ExerciseDao daoExercise = new ExerciseDao();
     private ScaleDao daoScale = new ScaleDao();
-    private Player currentPlayer;
+    public Player currentPlayer;
     public Profile currentProfile;
     public Exercise currentExercise;
 
@@ -89,7 +91,16 @@ public sealed class Manager{
 
     public string Login(string username,string password){
         string response = "OK";
-        MySqlConnection sqlConnection = manConnection.getConnection();
+        UnityEngine.Debug.Log("MEH");
+        MySqlConnection sqlConnection = null;
+        try{
+         sqlConnection = manConnection.getConnection(); 
+        }catch(Exception e){
+            response =e.ToString();
+            return response;
+        }
+        
+        
         Player loggedPlayer = null;
         try{
             loggedPlayer = this.daoPlayer.getPlayer_User_Password(sqlConnection,username,password);
@@ -97,10 +108,10 @@ public sealed class Manager{
         }catch(Exception e ){
             this.manConnection.closeConnection();
             UnityEngine.Debug.Log("[LOGIN] Exception"+e.Message);
-            response = "Error Logging";
+           // response = "Error Logging";
         }
         if(loggedPlayer == null){
-            response ="User not registered";
+           // response ="User not registered";
         }else{
             this.currentPlayer = loggedPlayer;
         }

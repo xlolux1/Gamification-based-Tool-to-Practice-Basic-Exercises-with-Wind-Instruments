@@ -2,10 +2,16 @@ using System;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Net.Http;
+using SimpleJSON;
 
 namespace daos
 {
     public class PlayerDao{
+        private static readonly HttpClient client = new HttpClient();
 
     public List<Player> getAllPlayers(MySqlConnection connection){
         List<Player> playersList = new List<Player>();
@@ -46,7 +52,6 @@ namespace daos
         reader.Close();
         return selectedPlayer;
     }
-
     public string insertPlayer(MySqlConnection connection,Player newPlayer){
         string response = "OK";
         MySqlCommand cmd = connection.CreateCommand();
@@ -58,6 +63,27 @@ namespace daos
         reader.Close();
         
         return response;
+    }
+    public  Player getPlayer_User_PasswordM(MySqlConnection sql,string username,string password){
+        var values = new Dictionary<string, string>
+        {
+            { "loginUser", username },
+            { "loginPass", password }
+        };
+
+        var content = new FormUrlEncodedContent(values);
+
+        var response =  client.PostAsync("http://192.168.1.36/UnityBackendTutorial/login.php", content).Result;
+         string resultContent = response.Content.ReadAsStringAsync().Result;
+        UnityEngine.Debug.Log(resultContent);
+        var json = JSON.Parse(resultContent);
+        string _username =json["username"];
+        string _name =json["name"];
+        string _password =json["password"];
+        string _email =json["email"];
+        string _surname =json["surname"];
+        Player selectedPlayer = new Player(_username,_name,_surname,_email,_password);
+        return selectedPlayer;
     }
 }
 

@@ -5,12 +5,13 @@ public class ManagerConnection{
     MySqlConnection connection;
 
     public  MySqlConnection getConnection(){
+        this.connection.Open();
         return this.connection;
     }
     public ManagerConnection(string _connectionString){
         this.connectionString = _connectionString;
         this.connection = new MySqlConnection(this.connectionString);
-        this.connection.Open();
+        //this.connection.Open();
     }
 
 

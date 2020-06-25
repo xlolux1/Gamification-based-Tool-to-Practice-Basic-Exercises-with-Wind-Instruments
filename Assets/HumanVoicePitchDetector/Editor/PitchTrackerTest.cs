@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿/*
+using UnityEngine;
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System;
@@ -257,3 +257,4 @@ public class PitchTrackerTest {
 		return r;
 	}
 }
+*/
