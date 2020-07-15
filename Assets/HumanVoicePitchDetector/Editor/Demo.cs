@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
-using NUnit.Framework;
 using System;
 using System.IO;
 using System.Linq;

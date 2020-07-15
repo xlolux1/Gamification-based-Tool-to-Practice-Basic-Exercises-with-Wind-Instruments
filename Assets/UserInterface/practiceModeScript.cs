@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Managers;
 
 
 public class practiceModeScript : MonoBehaviour{

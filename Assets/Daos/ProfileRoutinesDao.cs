@@ -2,10 +2,13 @@ using System;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http;
+using SimpleJSON;
 public class ProfileRoutinesDao{
+    private static readonly HttpClient client = new HttpClient();
 
 
-
+/*
     public string insertProfileRoutine(RoutinesEx routine,Profile profile,MySqlConnection connection){
         MySqlCommand cmd = connection.CreateCommand();
                         UnityEngine.Debug.Log("INSERT INTO PlayerRoutines(idRoutine,creative,username,instrument) Values("+routine.id+","+
@@ -18,7 +21,23 @@ public class ProfileRoutinesDao{
         reader.Close();
         return null;
     }
+    */
+    public string insertProfileRoutineM(RoutinesEx routine,Profile profile){
+                 var values = new Dictionary<string, string>
+        {
+            { "idRoutine", routine.id.ToString()},
+            { "creative", routine.creative.ToString()},
+            { "username", profile.username},
+            { "instrument", profile.instrument},
+        };
+        var content = new FormUrlEncodedContent(values);
+        var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/insertProfileRoutine.php", content).Result;
+        string resultContent = response.Content.ReadAsStringAsync().Result;
+        UnityEngine.Debug.Log(resultContent);
+        return resultContent;
+    }
 
+/*
     public int getNumberRoutinesFromProfile(Profile profile,MySqlConnection connection){
         int count = 0;
         MySqlCommand cmd = connection.CreateCommand();
@@ -30,6 +49,20 @@ public class ProfileRoutinesDao{
         reader.Close();
         return count;
     }
+*/  
+    public int getNumberRoutinesFromProfileM(Profile profile){
+        var values = new Dictionary<string, string>
+        {
+            { "user", profile.username},
+            { "instrument", profile.instrument},
+        };
+        var content = new FormUrlEncodedContent(values);
+        var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getNumberRoutinesFromProfile.php", content).Result;
+        string resultContent = response.Content.ReadAsStringAsync().Result;
+        return Int16.Parse(resultContent);
+
+    
+    }
 
     public List<RoutinesEx> getRoutinesProfile(Profile profile,MySqlConnection connection){
         MySqlCommand cmd = connection.CreateCommand();
@@ -40,6 +73,7 @@ public class ProfileRoutinesDao{
 
     }
 
+/*
     public int getCreativeRoutine(Profile profile,MySqlConnection connection){
         int idCreative = -1;
     MySqlCommand cmd = connection.CreateCommand();
@@ -53,6 +87,18 @@ public class ProfileRoutinesDao{
         }
         reader.Close();      
     return idCreative;
+    }
+    */
+    public int getCreativeRoutineM(Profile profile){
+        var values = new Dictionary<string, string>
+        {
+            { "user", profile.username},
+            { "instrument", profile.instrument},
+        };
+        var content = new FormUrlEncodedContent(values);
+        var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getCreativeRoutine.php", content).Result;
+        string resultContent = response.Content.ReadAsStringAsync().Result;
+        return Int16.Parse(resultContent);
     }
 
 

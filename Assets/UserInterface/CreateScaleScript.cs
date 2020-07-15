@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using Managers;
+
 public class CreateScaleScript : MonoBehaviour{
     public TMP_InputField beatsField;
 
@@ -12,8 +14,13 @@ public class CreateScaleScript : MonoBehaviour{
 
     public TMP_Dropdown signatureField;
     public TMP_Dropdown firstNoteField;
-    public TMP_Dropdown firstNoteScaleField;
+    public TMP_Text firstLetterText;
+    public TMP_Text userText;
+    public Button logOutButton;
+    public GameObject userInfo;
+    public GameObject logOut;
     public Slider beatSlider;
+    public TMP_Text textProfile;
 
     private string scaleType = "Mayor Scale";
     private int duration = 1;
@@ -29,6 +36,7 @@ public class CreateScaleScript : MonoBehaviour{
     private int firstNoteScale;
     public GameObject creativeMode;
     public GameObject createScale;
+    private bool userBox = true;
 
 
     public void handleScaleTypeField(){
@@ -69,6 +77,18 @@ public class CreateScaleScript : MonoBehaviour{
             this.signature ="2/4";
         }
     }
+        public void changeUserLogOut(){
+        if(userBox){
+            this.userInfo.SetActive(false);
+            this.logOut.SetActive(true);
+            this.userBox = false;
+        }else{
+            this.logOut.SetActive(false);
+            this.userInfo.SetActive(true);
+            this.userBox = true;
+        }
+        
+    }
 
     public void handleFirstNoteField(){
         int value = firstNoteField.value;
@@ -99,9 +119,12 @@ public class CreateScaleScript : MonoBehaviour{
     }
 
     public void handleScaleNoteField(){
-        int value = this.firstNoteScaleField.value;
-        UnityEngine.Debug.Log("Value"+value);
-        this.firstNoteScale = value +1;
+        if(this.instrument.Equals("trumpet")){
+            this.firstNoteScale = 4;
+        }else{
+            this.firstNoteScale = 3;
+        }
+
     }
 
     public void createScales(){
@@ -123,6 +146,10 @@ public class CreateScaleScript : MonoBehaviour{
         this.username = _username;
         this.instrument = _instrument;
         this.creativeId = _creativeId;
+        this.userText.text = this.username;
+        this.firstLetterText.text = username[0].ToString().ToUpper();
+        this.logOut.SetActive(false);
+        this.textProfile.text = this.instrument + " profile";
     }
     	public void ValueChangeCheck(){
 		beatsField.text = beatSlider.value.ToString();

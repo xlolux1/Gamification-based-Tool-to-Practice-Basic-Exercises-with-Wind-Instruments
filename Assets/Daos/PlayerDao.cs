@@ -11,8 +11,8 @@ using SimpleJSON;
 namespace daos
 {
     public class PlayerDao{
-        private static readonly HttpClient client = new HttpClient();
-
+    private static readonly HttpClient client = new HttpClient();
+    /*
     public List<Player> getAllPlayers(MySqlConnection connection){
         List<Player> playersList = new List<Player>();
         MySqlCommand cmd = connection.CreateCommand();
@@ -30,7 +30,8 @@ namespace daos
         reader.Close();
         return playersList;
     }
-
+    */
+/*
     public Player getPlayer_User_Password(MySqlConnection connection,string username,string password){
         Player selectedPlayer = null;
         MySqlCommand cmd = connection.CreateCommand();
@@ -52,6 +53,8 @@ namespace daos
         reader.Close();
         return selectedPlayer;
     }
+    */
+    /*
     public string insertPlayer(MySqlConnection connection,Player newPlayer){
         string response = "OK";
         MySqlCommand cmd = connection.CreateCommand();
@@ -64,16 +67,33 @@ namespace daos
         
         return response;
     }
-    public  Player getPlayer_User_PasswordM(MySqlConnection sql,string username,string password){
+    Ñ*/
+        public string insertPlayerM(Player newPlayer){
+        var values = new Dictionary<string, string>
+        {
+            { "loginUser", newPlayer.username },
+            { "loginPass", newPlayer.password },
+            { "loginName", newPlayer.name },
+            { "loginSurname", newPlayer.surname },
+            { "loginEmail", newPlayer.email },
+
+        };
+        var content = new FormUrlEncodedContent(values);
+        var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/register.php", content).Result;
+         string resultContent = response.Content.ReadAsStringAsync().Result;
+         UnityEngine.Debug.Log(resultContent);
+        return resultContent;
+    }
+    
+
+    public  Player getPlayer_User_PasswordM(string username,string password){
         var values = new Dictionary<string, string>
         {
             { "loginUser", username },
             { "loginPass", password }
         };
-
         var content = new FormUrlEncodedContent(values);
-
-        var response =  client.PostAsync("http://192.168.1.36/UnityBackendTutorial/login.php", content).Result;
+        var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/login.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
         UnityEngine.Debug.Log(resultContent);
         var json = JSON.Parse(resultContent);

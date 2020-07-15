@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Diagnostics;
 using PitchDetector;
 using SimpleJSON;
+using Managers;
 public class MicrophoneDemo : MonoBehaviour {
 	private GameObject staff;
 	private Stopwatch watch = new Stopwatch();

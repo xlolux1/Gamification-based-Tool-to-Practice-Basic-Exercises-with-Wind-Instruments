@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using Managers;
 public class profileScript : MonoBehaviour{
     public GameObject loginMenu;
     public GameObject profileMenu;
@@ -12,10 +13,6 @@ public class profileScript : MonoBehaviour{
     public TMP_Dropdown listInstrumentsDropdown;
     private string instrument;
     private string username;
-    public Image firstImageBlue;
-    public Image secondImageBlue;
-    public Image firstImageGrey;
-    public Image secondImageGrey;
 
     public TMP_Text firstLetterText;
     public TMP_Text userText;
@@ -30,16 +27,15 @@ public class profileScript : MonoBehaviour{
 
     private string message;
 
-
-
-    public  void setInstrumentsCreated(){
-   /*     List<string> listInstruments = new List<string>();
-        listInstruments = Manager.Instance.getInstrumentsPlayer();
-        selectInstrumentDropdown.ClearOptions();
-        selectInstrumentDropdown.AddOptions(listInstruments);
-        */
+    public void setButtonsSelect(){
+       GameObject prueba = Instantiate(this.userInfo);
+       prueba.transform.Translate(0,120,120);
     }
+
+
+
         void Start()
+        
     {
         if(Manager.Instance.currentPlayer == null){
             this.goBack();
@@ -47,7 +43,6 @@ public class profileScript : MonoBehaviour{
         }else{
             this.username = Manager.Instance.currentPlayer.username;
             this.setUsernameTxt(this.username);
-            this.setInstrumentsCreated();
 
         }
     }
@@ -61,14 +56,6 @@ public class profileScript : MonoBehaviour{
         this.userText.text =username;
         this.firstLetterText.text = username[0].ToString().ToUpper();
         this.logOut.SetActive(false);
-    }
-
-    public void createNewProfile(string instrument){
-        string response = Manager.Instance.createProfile(instrument);
-        if (response.Equals("Error")){
-            this.message= "can't create this Profile";
-        }
-        this.setInstrumentsCreated();
     }
     public void closeApp(){
         Application.Quit();
@@ -86,6 +73,19 @@ public class profileScript : MonoBehaviour{
         }
         
     }
+
+
+
+    public void selectProfile(string _instrument){
+        this.instrument = _instrument;
+        if(Manager.Instance.selectProfile(this.instrument)){
+            this.profileMenu.SetActive(false);
+            this.setChooseMode();
+            this.chooseMode.SetActive(true);
+        }
+
+    }
+
     public void selectProfile(){
         this.instrument = selectInstrumentDropdown.options[selectInstrumentDropdown.value].text;
         if(Manager.Instance.selectProfile(this.instrument)){

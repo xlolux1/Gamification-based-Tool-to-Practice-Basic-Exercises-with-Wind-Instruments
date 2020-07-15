@@ -20,7 +20,7 @@ public  class Exercise
     public int idExercise;
     public string description;
     public string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
-    public int midiInicial = 24;
+    private int midiInicial = 24;
     public string tune;
     public int beats;
     public string timeSignature;

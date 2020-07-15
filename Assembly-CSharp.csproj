@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ButtonsChangeScreenScript.cs" />
      <Compile Include="Assets\Daos\ExerciseDao.cs" />
      <Compile Include="Assets\Daos\ExercisePlayedInRoutineDao.cs" />
      <Compile Include="Assets\Daos\LongNotesDao.cs" />
@@ -93,6 +94,7 @@
      <Compile Include="Assets\Model\Player.cs" />
      <Compile Include="Assets\Model\Profile.cs" />
      <Compile Include="Assets\Model\RoutinesEx.cs" />
+     <Compile Include="Assets\ScrollController.cs" />
      <Compile Include="Assets\UserInterface\CreateScaleScript.cs" />
      <Compile Include="Assets\UserInterface\CreativeModeScript.cs" />
      <Compile Include="Assets\UserInterface\LoginMenu.cs" />
@@ -104,6 +106,7 @@
      <Compile Include="Assets\UserInterface\profileScript.cs" />
      <Compile Include="Assets\controlScript.cs" />
      <Compile Include="Assets\createLongNotes.cs" />
+     <Compile Include="Assets\idScript.cs" />
      <Compile Include="Assets\prueba.cs" />
      <Compile Include="Assets\sucessfulPanelScript.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
@@ -124,6 +127,7 @@
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+     <None Include="Assets\NewAssembly.asmdef" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/anton/Desktop/04_Juego plataformas/04 - Juego plataformas/Plataformas 06/NEW TFG TEST/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
