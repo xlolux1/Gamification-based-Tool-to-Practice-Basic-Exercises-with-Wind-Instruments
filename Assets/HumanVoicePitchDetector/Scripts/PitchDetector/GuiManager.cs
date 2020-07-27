@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class GuiManager{
 	private string[] notesPiano = new string[] {"DO","DO#","RE","RE#","MI","FA","FA#","SOL","SOL#","LA","LA#","SI"};
 	float x = -Camera.main.orthographicSize * Camera.main.aspect + 4;
-	float y = -0.955f;
+	float y = -1.955f;
 	float yDistance = 0.2349f;
 	GameObject quaver;
     GameObject noteImage;

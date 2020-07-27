@@ -26,6 +26,7 @@ public class CreativeModeScript : MonoBehaviour{
     public Button logOutButton;
     public GameObject userInfo;
     public GameObject logOut;
+    public TMP_Text titleText;
 
 
     private RectTransform  rectTransform;
@@ -41,6 +42,27 @@ public class CreativeModeScript : MonoBehaviour{
         this.logOut.SetActive(false);
         this.getCreativeRoutine();
         this.setExercises();
+        this.setBackground();
+    }
+
+        private void setBackground(){
+        switch (this.profile){
+            case "clarinet":
+                this.titleText.text = "clarinet profile";
+                break;
+            case "trumpet":
+                this.titleText.text = "trumpet profile";
+                break;
+            case "tuba":
+                this.titleText.text = "tuba profile";
+                break;
+            case "flugelhorn":
+                this.titleText.text = "trombone profile";
+                break;
+          default:
+              UnityEngine.Debug.Log("Error profile");
+              break;
+      }
     }
 
     public  void setExercises(){

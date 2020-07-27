@@ -14,7 +14,6 @@ public class LoginMenu : MonoBehaviour{
     public GameObject loginMenu;
     public GameObject profileMenu;
     public GameObject sucessfulPanel;
-
     public GameObject registerMenu;
 
 
@@ -63,7 +62,6 @@ public class LoginMenu : MonoBehaviour{
             this.usernameField.text="";
             this.passwordField.text="";
             loginMenu.SetActive(false);
-
             registerMenu.SetActive(true);
     }
 

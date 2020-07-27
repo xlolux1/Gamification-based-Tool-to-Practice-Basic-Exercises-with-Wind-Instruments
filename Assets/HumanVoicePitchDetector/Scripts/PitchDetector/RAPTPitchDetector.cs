@@ -575,7 +575,6 @@ namespace PitchDetector {
         * nlocs is the number of correlation patches to compute.
         */
         void crossfi(float[] data, int doff, int nlags, Cross cp, PeakData[] locs, int nlocs) {
-
             /* Compute mean in reference window and subtract this from the entire sequence. */
             int size = par.size; // cache size property
             int total = size + par.start + par.nlags;

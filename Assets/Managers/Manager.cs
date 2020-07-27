@@ -37,16 +37,13 @@ public sealed class Manager{
 
     public  Exercise startExercise(){
         Exercise exercise = null;
-        /*
         try{
          exercise =parser.LoadJson5();
         exercise.getStringNotes();
 
         }catch(DurationException e){
-            this.manConnection.closeConnection();
             UnityEngine.Debug.Log("[EXCEPTION CATCHED]" + e.Message);
         }
-        */
        return exercise;
     }
 
@@ -100,13 +97,12 @@ public sealed class Manager{
             response = "Wrong credentials";
         }
         if(loggedPlayer == null){
-           // response ="User not registered";
+           response ="User not registered";
         }else{
             response = "User logged";
             this.currentPlayer = loggedPlayer;
         }
         return response;
-
     }
 
     private string createCreativeRoutine(Player player,Profile profile){

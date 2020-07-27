@@ -95,9 +95,12 @@ public class ProfileRoutinesDao{
             { "user", profile.username},
             { "instrument", profile.instrument},
         };
+         UnityEngine.Debug.Log("Response:"+profile.username + profile.instrument);
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getCreativeRoutine.php", content).Result;
+       
         string resultContent = response.Content.ReadAsStringAsync().Result;
+         UnityEngine.Debug.Log("Response:"+resultContent);
         return Int16.Parse(resultContent);
     }
 
