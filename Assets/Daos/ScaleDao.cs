@@ -8,6 +8,7 @@ using SimpleJSON;
 public class ScaleDao  : ExerciseDao{
  private static readonly HttpClient client = new HttpClient();
 
+/*
     public string insertScale(MySqlConnection connection,ScaleExercise scale){
         //this.insertExercise(connection,scale);
         MySqlCommand cmd = connection.CreateCommand();
@@ -17,6 +18,8 @@ public class ScaleDao  : ExerciseDao{
         reader.Close();
         return null;
     }
+
+*/
 
     public string insertScaleM(ScaleExercise scale){
         this.insertExerciseM(scale);
@@ -31,7 +34,6 @@ public class ScaleDao  : ExerciseDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/insertScale.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return resultContent;
     }
 
@@ -67,8 +69,8 @@ public class ScaleDao  : ExerciseDao{
         }
         return isScale;
     }
+    /*
     public ScaleExercise getScale(MySqlConnection connection, int idScale,Exercise ex){
-        UnityEngine.Debug.Log("GET SCALE"+idScale);
         ScaleExercise scale = null;
         MySqlCommand cmd = connection.CreateCommand();
         cmd.CommandText="Select * from ScaleExercise Where idExercise="+idScale+";";
@@ -77,10 +79,28 @@ public class ScaleDao  : ExerciseDao{
             string typeScale = reader.GetString(1);
             string firstNote = reader.GetString(2);
             int duration = reader.GetInt32(3);
-            UnityEngine.Debug.Log("GET SCALE"+ typeScale);
             scale = new ScaleExercise(ex.tune,ex.beats,ex.timeSignature,firstNote,typeScale,duration);
         }
         reader.Close();
         return scale;
     }
+    */
+
+    public ScaleExercise getScaleM(int idScale,Exercise ex){
+        ScaleExercise scale = null;
+        var values = new Dictionary<string, string>
+        {
+            { "idExercise", idScale.ToString()},
+        };
+        var content = new FormUrlEncodedContent(values);
+        var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getScale.php", content).Result;
+        string resultContent = response.Content.ReadAsStringAsync().Result;
+        var json = JSON.Parse(resultContent);
+        string typeScale =json["typeScale"];
+        string firstNote =json["firstNote"];
+        int duration =Int16.Parse(json["duration"]);
+         scale = new ScaleExercise(ex.tune,ex.beats,ex.timeSignature,firstNote,typeScale,duration);
+         return scale;
+    }
+    
 }

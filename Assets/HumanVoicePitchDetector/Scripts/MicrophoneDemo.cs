@@ -53,7 +53,7 @@ private Tuple<int,int> coords = new Tuple<int,int>(100, 200);
 			this.pitch = pitch;
 
 			this.dt = dt;
-			//UnityEngine.Debug.Log(this.dt);
+
 		}
 		public float pitch;
 		public float dt;

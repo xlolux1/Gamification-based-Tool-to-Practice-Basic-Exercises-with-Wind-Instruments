@@ -23,13 +23,13 @@ public class practiceModeScript : MonoBehaviour{
         this.username = _username;
         this.instrument = _instrument;
         
-        Manager.Instance.readRoutine();
+        //Manager.Instance.readRoutine();
         this.getRoutines();
         this.setExercises();
     }
     private void getRoutines(){
         List<string> listDescriptions = new List<string>();
-        listRoutinesDescription = Manager.Instance.getRoutinesPlayer(this.username,this.instrument);
+        //listRoutinesDescription = Manager.Instance.getRoutinesPlayerM(this.username,this.instrument);
         for (int i=0;i<listRoutinesDescription.Count;i++){
             UnityEngine.Debug.Log("[PRUEBA DECRIPTIONS]"+listRoutinesDescription[i].Item2);
             

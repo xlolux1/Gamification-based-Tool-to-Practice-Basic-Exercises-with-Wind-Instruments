@@ -37,7 +37,6 @@ namespace daos
         MySqlCommand cmd = connection.CreateCommand();
         cmd.CommandText = "Select * from Player Where username ="+"'"+username+"'"+" AND password="+"'"+password+"';";
          MySqlDataReader reader = cmd.ExecuteReader();
-         UnityEngine.Debug.Log("Select * from Player Where username ="+"'"+username+"'"+" AND password="+"'"+password+"';");
 
         while (reader.Read()){
             string _username = reader.GetString(0);
@@ -45,7 +44,6 @@ namespace daos
             string _surname = reader.GetString(2);
             string _email = reader.GetString(3);
             string _password = reader.GetString(4);
-            UnityEngine.Debug.Log(_username+_name+_surname+_email+_password);
 
             selectedPlayer = new Player(_username,_name,_surname,_email,_password);
             
@@ -60,7 +58,6 @@ namespace daos
         MySqlCommand cmd = connection.CreateCommand();
         cmd.CommandText= "INSERT INTO Player(username,name,surname,email,password) Values('"+newPlayer.username+"','"+
         newPlayer.name+"','"+newPlayer.surname+"','"+newPlayer.email+"','"+newPlayer.password+"');";
-        UnityEngine.Debug.Log("INSERT INTO Player(username,name,surname,email,password) Values('"+newPlayer.username+"','"+
         newPlayer.name+"','"+newPlayer.surname+"','"+newPlayer.email+"','"+newPlayer.password+"');");
         MySqlDataReader reader = cmd.ExecuteReader();
         reader.Close();
@@ -81,7 +78,6 @@ namespace daos
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/register.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return resultContent;
     }
     
@@ -95,7 +91,6 @@ namespace daos
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/login.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-        UnityEngine.Debug.Log(resultContent);
         var json = JSON.Parse(resultContent);
         string _username =json["username"];
         string _name =json["name"];

@@ -18,7 +18,6 @@ public class ProfiDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/insertProfile.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return resultContent;
     }
     /*
@@ -26,8 +25,6 @@ public class ProfiDao{
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText ="INSERT INTO Profi(username,instrument) Values('"+newPlayer.username+"','"+
             instrument+"')";
-            UnityEngine.Debug.Log("INSERT INTO Profi(username,instrument) Values('"+newPlayer.username+"','"+
-            instrument+"')");
             MySqlDataReader reader = cmd.ExecuteReader();
              reader.Close();
         return null;
@@ -44,7 +41,6 @@ public class ProfiDao{
 
         while (reader.Read()){
             string _instrument = reader.GetString(0);
-            UnityEngine.Debug.Log("INSTRUMENT"+_instrument);
             listInstruments.Add(_instrument);
         }
         reader.Close();
@@ -59,9 +55,7 @@ public class ProfiDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getInstruments.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         var json = JSON.Parse(resultContent);
-        UnityEngine.Debug.Log(json);
         return null;
     }
 
@@ -85,7 +79,6 @@ public class ProfiDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/selectProfile.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return Int16.Parse(resultContent);
     }
 }

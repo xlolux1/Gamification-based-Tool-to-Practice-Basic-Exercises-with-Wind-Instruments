@@ -11,8 +11,7 @@ public class ProfileRoutinesDao{
 /*
     public string insertProfileRoutine(RoutinesEx routine,Profile profile,MySqlConnection connection){
         MySqlCommand cmd = connection.CreateCommand();
-                        UnityEngine.Debug.Log("INSERT INTO PlayerRoutines(idRoutine,creative,username,instrument) Values("+routine.id+","+
-        routine.creative+","+ profile.username+","+profile.instrument+");");
+
         cmd.CommandText= "INSERT INTO PlayerRoutines(idRoutine,creative,username,instrument) Values("+routine.id+","+
         +routine.creative+",'"+ profile.username+"','"+profile.instrument+"');";
         MySqlDataReader reader = cmd.ExecuteReader();
@@ -33,7 +32,6 @@ public class ProfileRoutinesDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/insertProfileRoutine.php", content).Result;
         string resultContent = response.Content.ReadAsStringAsync().Result;
-        UnityEngine.Debug.Log(resultContent);
         return resultContent;
     }
 
@@ -77,12 +75,10 @@ public class ProfileRoutinesDao{
     public int getCreativeRoutine(Profile profile,MySqlConnection connection){
         int idCreative = -1;
     MySqlCommand cmd = connection.CreateCommand();
-    UnityEngine.Debug.Log("Select idRoutine from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative="+1+";");
     cmd.CommandText = "Select idRoutine from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative="+1+";";
     MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read()){
              idCreative = reader.GetInt32(0);
-             UnityEngine.Debug.Log("GET CREATIVE idCreative"+idCreative);
 
         }
         reader.Close();      
@@ -95,12 +91,10 @@ public class ProfileRoutinesDao{
             { "user", profile.username},
             { "instrument", profile.instrument},
         };
-         UnityEngine.Debug.Log("Response:"+profile.username + profile.instrument);
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getCreativeRoutine.php", content).Result;
        
         string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log("Response:"+resultContent);
         return Int16.Parse(resultContent);
     }
 
@@ -108,13 +102,11 @@ public class ProfileRoutinesDao{
     public List<int> getRoutinesIdProfileNoCreative(Profile profile,MySqlConnection connection){
         List<int> listIdRoutines = new List<int>();
         MySqlCommand cmd = connection.CreateCommand();
-        UnityEngine.Debug.Log("Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative <> 1;");
         cmd.CommandText = "Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative <> 1;";
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read()){
             int idRoutine = reader.GetInt32(0);
             listIdRoutines.Add(idRoutine);
-            UnityEngine.Debug.Log("ID routine"+idRoutine);
         }
         reader.Close();
         return listIdRoutines;
@@ -123,13 +115,11 @@ public class ProfileRoutinesDao{
         public List<int> getRoutinesIdProfile(Profile profile,MySqlConnection connection){
         List<int> listIdRoutines = new List<int>();
         MySqlCommand cmd = connection.CreateCommand();
-        UnityEngine.Debug.Log("Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"' AND creative <> 1;");
         cmd.CommandText = "Select * from PlayerRoutines Where username ='"+profile.username+"' AND instrument='"+profile.instrument+"';";
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read()){
             int idRoutine = reader.GetInt32(0);
             listIdRoutines.Add(idRoutine);
-            UnityEngine.Debug.Log("ID routine"+idRoutine);
         }
         reader.Close();
         return listIdRoutines;

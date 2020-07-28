@@ -44,7 +44,6 @@ public class ScrollController : MonoBehaviour
     }
     public void ExerciseClick(GameObject but){
         int id = but.GetComponent<idScript>().getId();
-        UnityEngine.Debug.Log(id);
     }
 
 

@@ -11,8 +11,6 @@ public class RoutinesDao{
 /*
     public string insertRoutine(MySqlConnection connection,RoutinesEx routine){
         MySqlCommand cmd = connection.CreateCommand();
-                UnityEngine.Debug.Log("INSERT INTO Routines(idRoutine,description,finalDate) Values("+routine.id+",'"+
-        routine.description+"','"+routine.date+"','"+routine.creative+")");
         cmd.CommandText= "INSERT INTO Routines(idRoutine,description,finalDate) Values("+routine.id+",'"+
         routine.description+"','"+routine.date+"');";
 
@@ -31,7 +29,6 @@ public class RoutinesDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/insertRoutine.php", content).Result;
         string resultContent = response.Content.ReadAsStringAsync().Result;
-        UnityEngine.Debug.Log(resultContent);
         return resultContent;
     }
     /*
@@ -52,12 +49,10 @@ public class RoutinesDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getLastNumberRoutine.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return Int16.Parse(resultContent);
     }
 /*
     public RoutinesEx selectRoutineFromID(MySqlConnection connection,int idRoutine){
-        UnityEngine.Debug.Log("[SelectRoutineFromID]"+ idRoutine);
         MySqlCommand cmd = connection.CreateCommand();
         cmd.CommandText = "Select * From Routines Where idRoutine="+idRoutine+";";
         MySqlDataReader reader = cmd.ExecuteReader();
@@ -67,7 +62,6 @@ public class RoutinesDao{
             string _description = reader.GetString(1);
             string _finalDate = reader.GetDateTime(2).ToString();
             routine = new RoutinesEx(_id_routine,_description,_finalDate);
-            UnityEngine.Debug.Log("[SelectRoutineFromID]"+ _id_routine);
         }
         reader.Close();
         return routine;
@@ -81,7 +75,6 @@ public class RoutinesDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getRoutineFromID.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-        UnityEngine.Debug.Log(resultContent);
         var json = JSON.Parse(resultContent);
         int _idRoutine = Int16.Parse(json["idRoutine"]);
         string _description =json["description"];

@@ -175,7 +175,7 @@ public sealed class Manager{
     }
 
 
-    private string createRoutineExercise(int idRoutine,Exercise exercise){
+    public string createRoutineExercise(int idRoutine,Exercise exercise){
         string response =" no response";
         try{
             response = this.daoRoutineExercise.insertRoutineExerciseM(idRoutine,exercise);
@@ -246,30 +246,26 @@ public sealed class Manager{
     }
 
     public string setCurrentExercise(int idExercise){
-        /*
-         MySqlConnection sqlConection = manConnection.getConnection();
         string response="OK";
         Exercise ex = null;
         ScaleExercise scale = null;
         try{
 
-             ex = this.daoExercise.getExerciseFromId(sqlConection,idExercise);
+             ex = this.daoExercise.getExerciseFromIdM(idExercise);
         }catch(Exception e){
-            this.manConnection.closeConnection();
             UnityEngine.Debug.Log("[set current Exercise form ID EXCEPTION]"+ e.ToString());
+            response = "ERROR";
         }
         try{
-            if(this.daoScale.isScale(sqlConection,idExercise)){
-                ex = this.daoScale.getScale(sqlConection,idExercise,ex);
-
+            if(this.daoScale.isScaleM(idExercise)){
+                ex = this.daoScale.getScaleM(idExercise,ex);
             }
 
         }catch(Exception e){
 
         }
         this.currentExercise = ex;
-        */
-        return null;
+        return response;
        
     }
 
@@ -281,6 +277,7 @@ public sealed class Manager{
              ex = this.daoExercise.getExerciseFromIdM(idExercise);
         }catch(Exception e){
             UnityEngine.Debug.Log("[set current Exercise form ID EXCEPTION]"+ e.ToString());
+            response = "ERROR";
         }
         this.currentExercise = ex;
         return response;
@@ -302,9 +299,10 @@ public sealed class Manager{
         }
         return type;    
     }
+/***
+ Code related with Funcionallity of routines to the user
 
     public string readRoutine(){
-        /*
        RoutinesEx routine = parser.readRoutine();
        MySqlConnection sqlConection = manConnection.getConnection();
 
@@ -314,11 +312,9 @@ public sealed class Manager{
            this.daoRoutines.insertRoutine(sqlConection,routine);
            this.daoProfileRoutines.insertProfileRoutine(routine,this.currentProfile,sqlConection);
        }catch(Exception e){
-                 this.manConnection.closeConnection();
-                UnityEngine.Debug.Log("[Insert Routine]"+ e.ToString());            
+                 this.manConnection.closeConnection();           
        }
        for(int i=0;i<routine.listScales.Count;i++){
-           UnityEngine.Debug.Log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             try{
                 int count =this.daoScale.getCountExercises(sqlConection);
                 routine.listScales[i].idExercise = count + 1;
@@ -329,13 +325,14 @@ public sealed class Manager{
                 UnityEngine.Debug.Log("[Read routine]"+ e.ToString());           
             }
        }
-       */
         return null;
     }
+    **/
+    /*
         public List<Tuple<int, string>> getRoutinesPlayer(string username,string profile){
            
         List<Tuple<int, string>> listRoutines = new  List<Tuple<int, string>>();
-        /* List<RoutinesEx> listRoutine =new List<RoutinesEx>();
+         List<RoutinesEx> listRoutine =new List<RoutinesEx>();
         MySqlConnection sqlConection = manConnection.getConnection();
         List<int> listIdRoutines = new List<int>();
         //try{
@@ -351,9 +348,9 @@ public sealed class Manager{
 
 
         }
-        */
         return listRoutines;
     }
+    */
 
     public int getNumberRoutinesProfile(string username, string instrument){
         Profile profi = new Profile(username,instrument);
@@ -368,30 +365,26 @@ public sealed class Manager{
         return number;
         
     }
+    /*
     public int getNumberExercises(string username,string instrument){
-        /*
-        MySqlConnection sqlConection = manConnection.getConnection();
         Profile profi = new Profile(username,instrument);
         List<int> listRoutinesIds = new List<int>();
         int count = 0;
         try{
-           listRoutinesIds = this.daoProfileRoutines.getRoutinesIdProfile(profi,sqlConection);
+           listRoutinesIds = this.daoProfileRoutines.getRoutinesIdProfile(profi);
 
         }catch(Exception e){
-            this.manConnection.closeConnection();
             UnityEngine.Debug.Log("[Manager][getNumberExercises]"+e.Message);
         }
         try{
             for(int i = 0;i<listRoutinesIds.Count;i++){
-                count = this.daoRoutineExercise.getNumberExercisesFromIdRoutine(sqlConection,listRoutinesIds[i])+ count;
+                count = this.daoRoutineExercise.getNumberExercisesFromIdRoutine(listRoutinesIds[i])+ count;
             }
         }catch(Exception e){
             UnityEngine.Debug.Log("[Manager][getNumberExercisesFromIdRoutine]"+e.Message);
-        this.manConnection.closeConnection();
         }
         return count;
-        */
-        return 1;
     }
+    */
 }
 }

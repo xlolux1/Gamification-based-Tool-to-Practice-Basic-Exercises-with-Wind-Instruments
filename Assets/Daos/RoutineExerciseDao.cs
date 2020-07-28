@@ -27,21 +27,18 @@ public class RoutineExerciseDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/insertRoutineExercise.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return resultContent;
 
     
     }
 
     public List<int> getExerciesFromRoutine(MySqlConnection connection,int routineId){
-        UnityEngine.Debug.Log("Reading RoutineID from ExercisesInRoutines"+routineId);
         MySqlCommand cmd = connection.CreateCommand();
         List<int> listIds = new List<int>();
         cmd.CommandText ="Select idExercise from ExercisesInRoutines Where idRoutine="+routineId+";";
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read()){
             int id = reader.GetInt32(0);
-            UnityEngine.Debug.Log("Reading RoutineID from ExercisesInRoutines"+id);
             listIds.Add(id);
         }
         reader.Close();
@@ -57,7 +54,6 @@ public class RoutineExerciseDao{
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read()){
             int id = reader.GetInt32(0);
-            UnityEngine.Debug.Log("Reading RoutineID from ExercisesInRoutines"+id);
             listIds.Add(id);
         }
         reader.Close();
@@ -77,7 +73,6 @@ public class RoutineExerciseDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getExerciseIdFromRoutine.php", content).Result;
         string resultContent = response.Content.ReadAsStringAsync().Result;
-        UnityEngine.Debug.Log(resultContent);
         if(!resultContent.Equals("No idExercise found")){
             resultContent = resultContent.Remove(resultContent.Length - 1, 1);  
             string[] resultSplit = resultContent.Split(',');

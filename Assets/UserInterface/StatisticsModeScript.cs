@@ -44,8 +44,8 @@ public class StatisticsModeScript : MonoBehaviour{
          return numberRoutines;
     }
     private int calculateNumberExercises(string _username,string _instrument){
-        int numberExercises = Manager.Instance.getNumberExercises(_username,_instrument);
-        return numberExercises;
+        //int numberExercises = Manager.Instance.getNumberExercises(_username,_instrument);
+        return Manager.Instance.getInstrumentsPlayer().Count;
     }
 
     public void goBack(){

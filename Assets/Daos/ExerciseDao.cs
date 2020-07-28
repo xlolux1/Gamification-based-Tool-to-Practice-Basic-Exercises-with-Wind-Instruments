@@ -33,7 +33,6 @@ public class ExerciseDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/insertExercise.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return resultContent;
     }
 /*
@@ -54,7 +53,6 @@ public class ExerciseDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getCountExercises.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-         UnityEngine.Debug.Log(resultContent);
         return Int16.Parse(resultContent);
 
     }
@@ -68,7 +66,6 @@ public class ExerciseDao{
         var content = new FormUrlEncodedContent(values);
         var response =  client.PostAsync("http://192.168.1.37/UnityBackendTutorial/getExerciseFromId.php", content).Result;
          string resultContent = response.Content.ReadAsStringAsync().Result;
-        UnityEngine.Debug.Log(resultContent);
         var json = JSON.Parse(resultContent);
         int _idExercise =Int16.Parse(json["idExercise"]);
         string _difficulty =json["difficulty"];
@@ -82,7 +79,6 @@ public class ExerciseDao{
 /*
     public Exercise getExerciseFromId(MySqlConnection connection,int id){
         Exercise ex = null;
-        UnityEngine.Debug.Log("[getExerciseFromId]"+id);
         MySqlCommand cmd = connection.CreateCommand();
         cmd.CommandText = "Select * From Exercise Where idExercise="+id+";";
         MySqlDataReader reader = cmd.ExecuteReader();
@@ -93,7 +89,6 @@ public class ExerciseDao{
             string tune = reader.GetString(3);
             string signature = reader.GetString(4);
            int beats = reader.GetInt32(5);
-            UnityEngine.Debug.Log("[getExerciseFromId]"+idExercise);
             ex = new Exercise(idExercise,difficulty,description,tune,signature,beats);
 
 
